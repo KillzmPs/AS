@@ -1,15 +1,27 @@
 import React from 'react';
 import Navbar from './components/Navbar';
-import SearchBox from './components/SearchBox';
-import Recommendations from './components/Recomendacoes';
+import { Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import ModalContent from "./components/ModalContent";
+import { useModal } from "./context/ModalContext";
+import Modal from './components/Modal';
 
 const App = () => {
+  const { activeModal } = useModal();
+
   return (
     <div>
       <Navbar />
-      <SearchBox />
-      <Recommendations />
       
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+      </Routes>
+
+      {activeModal && (
+        <Modal>
+          <ModalContent />
+        </Modal>
+      )}
     </div>
   );
 };

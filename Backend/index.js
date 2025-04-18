@@ -28,12 +28,34 @@ app.get('/api/quartos', (req, res) => {
     });
 });
 
-app.get('/api/utilizadores', (req, res) => {
-    db.query('SELECT Utilizador.Id, Utilizador.Nome, Utilizador.Email, Utilizador.Telemovel, Utilizador.Ativo_2FA, Tipo_Utilizador.Nome_Tipo, Pais.Nome_Pais FROM `Utilizador` INNER JOIN Pais ON Utilizador.Id_Pais = Pais.Id Inner join Tipo_Utilizador on Utilizador.Id_Tipo_Utilizador = Tipo_Utilizador.Id;', (err, results) => {
-        if(err) return res.status(500).send(err);
-        res.json(results);
+app.post('/api/utilizadores', (req, res) => {
+    const { email, password } = req.body;
+  
+    const query = `
+      SELECT 
+        Utilizador.Id, 
+        Utilizador.Nome, 
+        Utilizador.Email, 
+        Utilizador.Telemovel, 
+        Utilizador.Ativo_2FA, 
+        Tipo_Utilizador.Nome_Tipo, 
+        Pais.Nome_Pais 
+      FROM 
+        Utilizador
+      INNER JOIN Pais ON Utilizador.Id_Pais = Pais.Id 
+      INNER JOIN Tipo_Utilizador ON Utilizador.Id_Tipo_Utilizador = Tipo_Utilizador.Id
+      WHERE Utilizador.Email = ? AND Utilizador.Password = ?;
+    `;
+  
+    db.query(query, [email, password], (err, results) => {
+      if (err) return res.status(500).send(err);
+  
+      if (results.length === 0) {
+        return res.status(401).json({ message: 'Email ou palavra-passe incorretos.' });
+      }
+      res.json(results);
     });
-});
+  });
 
 app.get('/api/classes', (req, res) => {
     db.query('SELECT * FROM Classe;', (err, results) => {
