@@ -1,0 +1,122 @@
+body {
+    background-color: #201c3c;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background: #201c3c;
+    height: auto;
+    align-items: center;
+    min-height: 70px;
+}
+
+
+body {
+    margin: 0; 
+    padding: 0;
+    padding-top: 80px;
+}
+
+.navbar-left, .navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-right {
+    align-items: center;
+    gap: 20px;
+    margin-right: 3rem;
+}
+
+.company-name {
+    font-size:  2rem;
+    font-weight: bold;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: white;
+    -webkit-text-stroke: 2px black;
+}
+
+.language-selector {
+    display: flex;
+    align-items: center;
+    margin-right: 1.5rem;
+    cursor:pointer;
+    background-color: gray;
+    border-radius: 40px;
+    white-space: nowrap;
+    padding: 0.25rem 0.5rem;
+}
+
+.language-selector:hover {
+    background-color: darkslategray;
+}
+
+.flag-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 0.5rem;
+}
+
+.flag-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.language-text {
+    font-size: 0.9rem;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+}
+
+.login-avatar {
+    display: flex;
+    align-items: center;
+}
+
+.avatar-circle {
+    width:40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-greeting {
+    display: flex;
+    align-items: center;
+    background-color: gray;
+    border-radius:40px;
+    padding: 0.25rem 0.5rem;
+}
+
+.user-greeting:hover {
+    background-color: darkslategray;
+}
+
+.user-greeting span {
+    margin-right: 0.5rem;
+    font-size: 0.9rem;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    margin-left: 0.5rem;
+}
+
+.login-button {
+    cursor:pointer;
+}
