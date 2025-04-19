@@ -7,7 +7,6 @@ const HomePage = () => {
     <div>
       <SearchBox />
       <Recommendations />
-      
     </div>
   );
 };

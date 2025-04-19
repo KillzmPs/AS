@@ -69,7 +69,8 @@ const ModalContent = () => {
               setError("Email já existe");
             } else {
                 const result2 = await Register(name, email, tele, nasc, password, selectedPais);
-                login(name);
+                const result3 = await Login(email, password);
+                login(result3[0]);
                 closeModels();
             }
           } catch {
