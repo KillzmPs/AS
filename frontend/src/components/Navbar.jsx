@@ -2,12 +2,12 @@
 import React from 'react';
 import './Navbar.css';
 import { useModal } from '../context/ModalContext';
+import { useUser } from "../context/UserContext";
 
 const Navbar = () => {
   
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const [userName, setUserName] = React.useState('Henrique');
   const { openLogin } = useModal(); 
+  const { user } = useUser();
 
   return (
     <nav className="navbar">
@@ -18,7 +18,7 @@ const Navbar = () => {
       <div className="navbar-right">
 
         <div className="login-avatar">
-          {isLoggedIn ? (
+          {user ? (
             <div className="user-greeting">
               <div className="avatar-circle">
                 <img 
@@ -27,7 +27,7 @@ const Navbar = () => {
                   className="avatar-img"
                 />
               </div>
-              <span>Olá, {userName}</span>
+              <span>Olá, {user.Nome}</span>
             </div>
           ) : (
             <div className="login-button user-greeting" onClick={() => openLogin()}> 

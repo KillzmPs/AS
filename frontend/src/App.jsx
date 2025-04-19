@@ -5,9 +5,11 @@ import HomePage from './pages/HomePage';
 import ModalContent from "./components/ModalContent";
 import { useModal } from "./context/ModalContext";
 import Modal from './components/Modal';
+import { useUser } from './context/UserContext';
 
 const App = () => {
   const { activeModal } = useModal();
+  const { user, logout } = useUser();
 
   return (
     <div>

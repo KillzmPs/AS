@@ -26,6 +26,11 @@ form {
     align-items: center;
 }
 
+.Error_part {
+    height: 0.5rem;
+    color: red;
+}
+
 .FormRow {
     margin-top: 20px;
     width: 100%;
@@ -40,6 +45,15 @@ form {
     height: 40px;
     width: 100%;
     padding: 15px;
+    box-sizing: border-box;
+}
+
+.pais_modal {
+    border-radius: 30px;
+    border: 1px solid gray;
+    outline: none;
+    height: 40px;
+    width: 100%;
     box-sizing: border-box;
 }
 

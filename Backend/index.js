@@ -44,15 +44,37 @@ app.post('/api/utilizadores', (req, res) => {
         Utilizador
       INNER JOIN Pais ON Utilizador.Id_Pais = Pais.Id 
       INNER JOIN Tipo_Utilizador ON Utilizador.Id_Tipo_Utilizador = Tipo_Utilizador.Id
-      WHERE Utilizador.Email = ? AND Utilizador.Password = ?;
+      WHERE Utilizador.Email = ? AND Utilizador.Palavra_Passe = ?;
     `;
   
     db.query(query, [email, password], (err, results) => {
       if (err) return res.status(500).send(err);
+      res.json(results);
+    });
+  });
+
+
+  app.post('/api/emails', (req, res) => {
+    const { email } = req.body;
   
-      if (results.length === 0) {
-        return res.status(401).json({ message: 'Email ou palavra-passe incorretos.' });
-      }
+    const query = `
+      SELECT 
+        Utilizador.Id, 
+        Utilizador.Nome, 
+        Utilizador.Email, 
+        Utilizador.Telemovel, 
+        Utilizador.Ativo_2FA, 
+        Tipo_Utilizador.Nome_Tipo, 
+        Pais.Nome_Pais 
+      FROM 
+        Utilizador
+      INNER JOIN Pais ON Utilizador.Id_Pais = Pais.Id 
+      INNER JOIN Tipo_Utilizador ON Utilizador.Id_Tipo_Utilizador = Tipo_Utilizador.Id
+      WHERE Utilizador.Email = ?;
+    `;
+  
+    db.query(query, email, (err, results) => {
+      if (err) return res.status(500).send(err);
       res.json(results);
     });
   });
@@ -62,6 +84,14 @@ app.get('/api/classes', (req, res) => {
         if(err) return res.status(500).send(err);
         res.json(results);
     });
+});
+
+
+app.get('/api/paises', (req, res) => {
+  db.query('SELECT * FROM Pais;', (err, results) => {
+      if(err) return res.status(500).send(err);
+      res.json(results);
+  });
 });
 
 app.get('/api/recomendacoes', (req, res) => {

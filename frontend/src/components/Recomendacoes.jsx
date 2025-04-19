@@ -25,7 +25,7 @@ const Recommendations = () => {
               <h1>{rec.Nome}</h1>
               <p>{rec.Aeroporto_Origem}({rec.Pais_Origem})- {rec.Aeroporto_Destino}({rec.pais_destino})</p>
               <p>Classe: <b>{rec.Tipo_Classe}</b></p>
-              <p><h3>{rec.Preco}€/pessoa</h3></p>
+              <p><b style={{fontSize: "17px"}}>{rec.Preco}€/pessoa</b></p>
             </div>
           ))
         ) : (
