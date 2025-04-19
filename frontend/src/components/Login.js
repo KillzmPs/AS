@@ -60,3 +60,22 @@ export const Register = async (nome, email, tele, data_aniversario, password, id
     return { erro: 'Erro de rede ou servidor' };
   }
 };
+
+export const send2FACode = async (email) => {
+  const response = await fetch("http://localhost:5000/api/2fa/send", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
+  });
+  return await response.json();
+};
+
+export const verify2FACode = async (email, codigo) => {
+  const response = await fetch("http://localhost:5000/api/2fa/verify", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, codigo }),
+  });
+  return await response.json();
+};
+

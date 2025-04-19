@@ -9,7 +9,7 @@ const Modal = ({ children }) => {
     <div className="modal-overlay" onClick={closeModels}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <button className="close-button" onClick={closeModels}>
-          ✖
+          ⛌
         </button>
         {children}
       </div>

@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { useModal } from "../context/ModalContext";
 import "./ModalContent.css"
-import { Login, veriEmail, Register } from "./Login";
+import { Login, veriEmail, Register, send2FACode, verify2FACode } from "./Login";
 import { useUser } from "../context/UserContext";
 import { fetchCountries } from "./Paises";
 
 const ModalContent = () => {
-  const { activeModal, closeModels, openLogin, openRegister } = useModal();
+  const { activeModal, closeModels, openLogin, openRegister, autenticacao } = useModal();
 
   const [error, setError ] = useState("")
   const [ email, setEmail ] = useState("");
@@ -18,6 +18,8 @@ const ModalContent = () => {
   const [tele, setTele] = useState('');
   const [nasc, setNasc] = useState('');
   const [againPas, setAgainPas] = useState('');
+  const [codigo, setCodigo] = useState('');
+  const [login2fa, setLogin2fa] = useState({})
 
   useEffect(() => {
       const loadPais = async () => {
@@ -28,9 +30,9 @@ const ModalContent = () => {
     
     }, []);
 
-    const handlePaisChange = (e) => {
+  const handlePaisChange = (e) => {
       setSelectedPais(e.target.value); 
-    };
+  };
 
   const doLogin = async (e) => {
     e.preventDefault();
@@ -40,10 +42,15 @@ const ModalContent = () => {
     } else {
     try {
       const result = await Login(email, password);
-      console.log(result[0]);
       if(result.length > 0) {
-        login(result[0]);
-        closeModels();
+        if(result[0].Ativo_2FA === 1) {
+          await send2FACode(email);
+          setLogin2fa(result[0]);
+          autenticacao();
+        } else {
+          login(result[0]);
+          closeModels();
+        }
       } else {
         setError("Email ou Palavra-Passe Erradas");
       }
@@ -54,7 +61,7 @@ const ModalContent = () => {
   }
 
 
-  const dores = async (e) => {
+  const doRegister = async (e) => {
     e.preventDefault();
     
     if(!name || !email || !tele || !nasc || !selectedPais || !password || !againPas) {
@@ -80,6 +87,18 @@ const ModalContent = () => {
     }
   }
 
+  const verificar2fa = async (e) => {
+    e.preventDefault();
+    
+    const result = await verify2FACode(email, codigo);
+    if(result.sucesso == true) {
+      login(login2fa);
+      closeModels()
+    } else {
+      setError(result.mensagem);
+    }
+  }
+  
 
   
 
@@ -160,7 +179,8 @@ const ModalContent = () => {
           <input type="password" placeholder="Repita a Palavra-Passe" value={againPas} onChange={(e) => setAgainPas(e.target.value)} />
           </div>
           <div className="FormRow" >
-          <button type="submit" onClick={dores}>Registar</button>
+          -
+          <button type="submit" onClick={doRegister}>Registar</button>
           </div>
         </form>
         </div>
@@ -171,12 +191,30 @@ const ModalContent = () => {
     );
   }
 
-  if (activeModal === "account-settings") {
+  if (activeModal === "2fa") {
     return (
       <div>
-        <h2>Configurações da Conta</h2>
-        <p>Aqui você pode editar seus dados pessoais, visualizar seus bilhetes e fazer logout.</p>
-        <button onClick={closeModels}>Fechar</button>
+        <div className="Top_Modal">
+          <div className="Title_Modal">
+            <h2>Autenticação 2 Fatores</h2>
+          </div>
+        </div>
+        <div className="Middle_Modal">
+        <form>
+          <div className="FormRow" >
+            Coloque o código de segurança que foi enviado para o seu email.
+          </div>
+          <div className="Error_part" >
+          {error}
+        </div>
+          <div className="FormRow" >
+          <input type="text" placeholder="Código de Segurança" value={codigo} onChange={(e) => setCodigo(e.target.value)} />
+          </div>
+          <div className="FormRow" >
+          <button type="submit" onClick={verificar2fa} >Verificar</button>
+          </div>
+        </form>
+        </div>
       </div>
     );
   }
