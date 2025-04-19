@@ -78,6 +78,17 @@ app.post('/api/utilizadores', (req, res) => {
       res.json(results);
     });
   });
+app.post('/api/createuser', (req, res) => {
+
+  const { nome, email, tele, data_aniversario, password, id_pais } = req.body;
+  const query = `INSERT INTO Utilizador(Nome, Email, Telemovel, Data_Aniversario, Palavra_passe, Id_Pais) 
+    VALUES (?, ?, ?, ?, ?, ?)`;
+
+  db.query(query, [nome, email, tele, data_aniversario, password, id_pais], (err, results) => {
+    if (err) return res.status(500).send(err);
+    res.json(results);
+  });
+});
 
 app.get('/api/classes', (req, res) => {
     db.query('SELECT * FROM Classe;', (err, results) => {

@@ -19,7 +19,7 @@ export const Login = async (email, password) => {
     }
 };
 
-export const dof = async (email) => {
+export const veriEmail = async (email) => {
   try {
     const res = await fetch('http://localhost:5000/api/emails', {
       method: 'POST',
@@ -29,6 +29,27 @@ export const dof = async (email) => {
     
     if (!res.ok) {
       throw new Error('Erro inesperado ao autenticar');
+    }
+
+    const data = await res.json();
+    return data;
+
+  } catch (error) {
+    console.error(error);
+    return { erro: 'Erro de rede ou servidor' };
+  }
+};
+
+export const Register = async (nome, email, tele, data_aniversario, password, id_pais) => {
+  try {
+    const res = await fetch('http://localhost:5000/api/createuser', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nome, email, tele, data_aniversario, password, id_pais })
+    });
+    
+    if (!res.ok) {
+      throw new Error('Erro inesperado ao registar');
     }
 
     const data = await res.json();

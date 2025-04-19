@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useModal } from "../context/ModalContext";
 import "./ModalContent.css"
-import { Login, dof } from "./Login";
+import { Login, veriEmail, Register } from "./Login";
 import { useUser } from "../context/UserContext";
 import { fetchCountries } from "./Paises";
 
@@ -14,6 +14,10 @@ const ModalContent = () => {
   const { login } = useUser(); 
   const [pais, setPais] = useState([]);
   const [selectedPais, setSelectedPais] = useState('');
+  const [name, setName] = useState('');
+  const [tele, setTele] = useState('');
+  const [nasc, setNasc] = useState('');
+  const [againPas, setAgainPas] = useState('');
 
   useEffect(() => {
       const loadPais = async () => {
@@ -30,6 +34,10 @@ const ModalContent = () => {
 
   const doLogin = async (e) => {
     e.preventDefault();
+    setError("");
+    if(!email || !password){
+      setError("Introduza os dados")
+    } else {
     try {
       const result = await Login(email, password);
       console.log(result[0]);
@@ -42,21 +50,32 @@ const ModalContent = () => {
     } catch {
       setError("Erro 401");
     }
+    }
   }
 
 
   const dores = async (e) => {
     e.preventDefault();
-    try {
-      const result = await dof(email);
-      console.log(result[0]);
-      if(result.length > 0) {
-        setError("existo");
+    
+    if(!name || !email || !tele || !nasc || !selectedPais || !password || !againPas) {
+      setError("Introduza todos os dados");
+    } else {
+      if(password != againPas) {
+        setError("As Palavras passes não são iguais");
       } else {
-        setError("sou novo");
+          try {
+            const result = await veriEmail(email);
+            if(result.length > 0) {
+              setError("Email já existe");
+            } else {
+                const result2 = await Register(name, email, tele, nasc, password, selectedPais);
+                login(name);
+                closeModels();
+            }
+          } catch {
+            setError("Erro 401");
+          }
       }
-    } catch {
-      setError("Erro 401");
     }
   }
 
@@ -77,10 +96,10 @@ const ModalContent = () => {
           {error}
         </div>
           <div className="FormRow" >
-          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
+          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
           <div className="FormRow" >
-          <input type="password" placeholder="Palavra-Passe" value={password} onChange={(e) => setPassword(e.target.value)} required/>
+          <input type="password" placeholder="Palavra-Passe" value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
           <div className="FormRow" >
           <button type="submit" onClick={doLogin}>Entrar</button>
@@ -95,7 +114,6 @@ const ModalContent = () => {
   }
 
   if (activeModal === "register") {
-    
     return (
       <div>
         <div className="Top_Modal">
@@ -109,16 +127,16 @@ const ModalContent = () => {
           {error}
         </div>
           <div className="FormRow" >
-          <input type="text" placeholder="Nome" required/>
+          <input type="text" placeholder="Nome" value={name} onChange={(e) => setName(e.target.value)} />
           </div>
           <div className="FormRow" >
-          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
+          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
           <div className="FormRow" >
-          <input type="tel" placeholder="Telemovel"  pattern="[0-9]{9}" required/>
+          <input type="tel" placeholder="Telemovel"  pattern="[0-9]{9}" value={tele} onChange={(e) => setTele(e.target.value)}/>
           </div>
           <div className="FormRow" >
-          <input type="date" placeholder="Data de Nascimento" required/>
+          <input type="date" placeholder="Data de Nascimento" value={nasc} onChange={(e)=> setNasc(e.target.value)} />
           </div>
           <div className="FormRow">
           <select
@@ -135,10 +153,10 @@ const ModalContent = () => {
             </select>
           </div>
           <div className="FormRow" >
-          <input type="password" placeholder="Palavra-Passe" required/>
+          <input type="password" placeholder="Palavra-Passe" value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
           <div className="FormRow" >
-          <input type="password" placeholder="Repita a Palavra-Passe" required/>
+          <input type="password" placeholder="Repita a Palavra-Passe" value={againPas} onChange={(e) => setAgainPas(e.target.value)} />
           </div>
           <div className="FormRow" >
           <button type="submit" onClick={dores}>Registar</button>
