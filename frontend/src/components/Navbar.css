@@ -1,5 +1,6 @@
 body {
     background-color: #201c3c;
+    font-weight: bold;
     font-family: Helvetica, sans-serif;
 }
 
@@ -75,7 +76,6 @@ body {
 
 .language-text {
     font-size: 0.9rem;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: bold;
 }
 
@@ -109,14 +109,77 @@ body {
     background-color: darkslategray;
 }
 
+.user-greeting2 {
+    display: flex;
+    align-items: center;
+    background-color: gray;
+    border-radius:40px;
+    padding: 0.25rem 0.5rem;
+}
+
 .user-greeting span {
     margin-right: 0.5rem;
     font-size: 0.9rem;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: bold;
     margin-left: 0.5rem;
 }
 
 .login-button {
     cursor:pointer;
+}
+
+.perfil-container {
+    position: relative;
+    cursor: pointer;
+}
+
+.perfil-modal {
+    position: absolute;
+    top: 110%;
+    right: 0;
+    width: 250px;
+    background-color: white;
+    color: black;
+    border-radius: 30px;
+    padding: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+}
+
+.close-button2 {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.section {
+    margin: 10px;
+    height: 30px;
+    margin-bottom: 20px;
+}
+
+.content {
+    margin-top: 20px;
+    padding: 15px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 50px;
+}
+
+.content:hover {
+    color: white;
+    background-color: #201c3c;
+}
+
+.section:hover {
+    cursor: pointer;
+}
+
+.close-button2:hover {
+    cursor: pointer;
 }

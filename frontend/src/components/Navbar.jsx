@@ -1,13 +1,19 @@
 // components/Navbar.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import './Navbar.css';
 import { useModal } from '../context/ModalContext';
 import { useUser } from "../context/UserContext";
 
 const Navbar = () => {
   
-  const { openLogin } = useModal(); 
-  const { user } = useUser();
+  const { openLogin, closeModels } = useModal(); 
+  const { user, logout } = useUser();
+
+  const [showPerfilModal, setShowPerfilModal] = useState(false);
+
+  const PerfilModal = ()  => {
+    setShowPerfilModal((prev) => !prev);
+  }
 
   return (
     <nav className="navbar">
@@ -19,7 +25,7 @@ const Navbar = () => {
 
         <div className="login-avatar">
           {user ? (
-            <div className="user-greeting">
+            <div className="user-greeting2 perfil-container" onClick={PerfilModal}>
               <div className="avatar-circle">
                 <img 
                   src="https://www.w3schools.com/howto/img_avatar.png" 
@@ -28,6 +34,66 @@ const Navbar = () => {
                 />
               </div>
               <span>Olá, {user.Nome}</span>
+              {
+                showPerfilModal && (
+                  user.Nome_Tipo === "Cliente" ? (<div className='perfil-modal'>
+                    <button className="close-button2" onClick={closeModels}>
+                      ⛌
+                    </button>
+                    <div className='section'>
+                      <div className='content'>
+                        Dados Pessoais
+                      </div>
+                    </div>
+                    <div className='section'>
+                      <div className='content'>
+                        Os Meus Bilhetes
+                      </div>
+                    </div>
+                    <div className='section'>
+                      <div className='content'>
+                        Tickets
+                      </div>
+                    </div>
+                    <div className='section'>
+                      <div className='content'onClick={logout}>
+                        Logout
+                      </div>
+                    </div>
+                  </div>) : (
+                    <div className='perfil-modal'>
+                    <button className="close-button2" onClick={closeModels}>
+                      ⛌
+                    </button>
+                    <div className='section'>
+                      <div className='content'>
+                        Dados Pessoais
+                      </div>
+                    </div>
+                    <div className='section'>
+                      <div className='content'>
+                        Tickets
+                      </div>
+                    </div>
+                    <div className='section'>
+                      <div className='content'>
+                        Administração de clientes
+                      </div>
+                    </div>
+                    <div className='section'>
+                      <div className='content'>
+                        Estatisticas
+                      </div>
+                    </div>
+                    <div className='section'>
+                      <div className='content'onClick={logout}>
+                        Logout
+                      </div>
+                    </div>
+                  </div>
+                  )
+                )
+              }
             </div>
           ) : (
             <div className="login-button user-greeting" onClick={() => openLogin()}> 

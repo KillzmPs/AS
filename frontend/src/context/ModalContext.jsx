@@ -8,7 +8,8 @@ export const ModalProvider = ({ children }) => {
 
   const openLogin = () => setActiveModal("login");
   const openRegister = () => setActiveModal("register");
-  const autenticacao =() => setActiveModal("2fa");
+  const autenticacao = () => setActiveModal("2fa");
+  const esquecimePass = () => setActiveModal("Esquecime_Pass");
   const openAccountSettings = () => setActiveModal("account-settings");
   const refMultibanco = () => setActiveModal("multibanco");
   const refMbWay = () => setActiveModal("mbway");
@@ -21,6 +22,7 @@ export const ModalProvider = ({ children }) => {
         openLogin,
         openRegister,
         autenticacao,
+        esquecimePass,
         openAccountSettings,
         refMultibanco,
         refMbWay,
