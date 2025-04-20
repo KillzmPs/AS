@@ -1,4 +1,3 @@
-// components/Navbar.jsx
 import React, { useState } from 'react';
 import './Navbar.css';
 import { useModal } from '../context/ModalContext';
