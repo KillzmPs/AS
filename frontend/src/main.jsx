@@ -3,16 +3,19 @@ import { createRoot } from 'react-dom/client'
 import {BrowserRouter} from "react-router-dom"
 import { ModalProvider } from './context/ModalContext'
 import { UserProvider } from './context/UserContext.jsx'
+import { NotificationProvider } from './context/NotificationContext.jsx'
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <UserProvider>
-      <ModalProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </ModalProvider>
-    </UserProvider>
+    <BrowserRouter>
+      <NotificationProvider>
+        <UserProvider>
+          <ModalProvider>
+            <App />
+          </ModalProvider>
+        </UserProvider>
+      </NotificationProvider>
+    </BrowserRouter>
   </StrictMode>,
 )

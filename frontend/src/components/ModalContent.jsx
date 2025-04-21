@@ -4,10 +4,11 @@ import "./ModalContent.css"
 import { Login, veriEmail, Register, send2FACode, verify2FACode } from "./Login";
 import { useUser } from "../context/UserContext";
 import { fetchCountries } from "./Paises";
+import { useNotification } from "../context/NotificationContext";
 
 const ModalContent = () => {
   const { activeModal, closeModels, openLogin, openRegister, autenticacao } = useModal();
-
+  const { notifySuccess } = useNotification();
   const [error, setError ] = useState("")
   const [ email, setEmail ] = useState("");
   const [ password, setPassword ] = useState("");
@@ -50,6 +51,7 @@ const ModalContent = () => {
         } else {
           login(result[0]);
           closeModels();
+          notifySuccess("Login efetuado com sucesso");
         }
       } else {
         setError("Email ou Palavra-Passe Erradas");
@@ -93,6 +95,7 @@ const ModalContent = () => {
     const result = await verify2FACode(email, codigo);
     if(result.sucesso == true) {
       login(login2fa);
+      notifySuccess("Login efetuado com sucesso");
       closeModels()
     } else {
       setError(result.mensagem);

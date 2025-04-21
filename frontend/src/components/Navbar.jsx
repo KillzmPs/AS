@@ -2,16 +2,26 @@ import React, { useState } from 'react';
 import './Navbar.css';
 import { useModal } from '../context/ModalContext';
 import { useUser } from "../context/UserContext";
+import { useNavigate } from 'react-router-dom';
+import { useNotification } from '../context/NotificationContext';
 
 const Navbar = () => {
   
   const { openLogin, closeModels } = useModal(); 
   const { user, logout } = useUser();
+  const navigate = useNavigate();
+  const { notifySuccess } = useNotification();
 
   const [showPerfilModal, setShowPerfilModal] = useState(false);
 
   const PerfilModal = ()  => {
     setShowPerfilModal((prev) => !prev);
+  }
+
+  const LogOut = () => {
+    logout();
+    navigate("/");
+    notifySuccess("Logout feito com sucesso");
   }
 
   return (
@@ -40,7 +50,7 @@ const Navbar = () => {
                       ⛌
                     </button>
                     <div className='section'>
-                      <div className='content'>
+                      <div className='content' onClick={() => navigate("/areapessoal")}>
                         Dados Pessoais
                       </div>
                     </div>
@@ -55,7 +65,7 @@ const Navbar = () => {
                       </div>
                     </div>
                     <div className='section'>
-                      <div className='content'onClick={logout}>
+                      <div className='content'onClick={LogOut}>
                         Logout
                       </div>
                     </div>
@@ -65,7 +75,7 @@ const Navbar = () => {
                       ⛌
                     </button>
                     <div className='section'>
-                      <div className='content'>
+                      <div className='content' onClick={() => navigate("/areapessoal")}>
                         Dados Pessoais
                       </div>
                     </div>
@@ -85,7 +95,7 @@ const Navbar = () => {
                       </div>
                     </div>
                     <div className='section'>
-                      <div className='content'onClick={logout}>
+                      <div className='content' onClick={LogOut}>
                         Logout
                       </div>
                     </div>
