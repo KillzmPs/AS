@@ -26,7 +26,7 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div className="navbar-left">
+      <div className="navbar-left" onClick={() => navigate("/")}>
         <span className="company-name">FlyEasy</span>
       </div>
       
@@ -82,6 +82,11 @@ const Navbar = () => {
                     <div className='section'>
                       <div className='content'>
                         Tickets
+                      </div>
+                    </div>
+                    <div className='section'>
+                      <div className='content'>
+                        Consulta de Bilhetes
                       </div>
                     </div>
                     <div className='section'>

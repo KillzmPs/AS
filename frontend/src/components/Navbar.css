@@ -183,3 +183,7 @@ body {
 .close-button2:hover {
     cursor: pointer;
 }
+
+.navbar-left:hover {
+    cursor: pointer;
+}

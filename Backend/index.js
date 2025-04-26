@@ -49,6 +49,7 @@ app.post('/api/utilizadores', (req, res) => {
         Utilizador.Email, 
         Utilizador.Telemovel, 
         Utilizador.Ativo_2FA, 
+        Utilizador.Data_Aniversario,
         Tipo_Utilizador.Nome_Tipo, 
         Pais.Nome_Pais 
       FROM 

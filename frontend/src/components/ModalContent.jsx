@@ -80,6 +80,7 @@ const ModalContent = () => {
                 const result2 = await Register(name, email, tele, nasc, password, selectedPais);
                 const result3 = await Login(email, password);
                 login(result3[0]);
+                notifySuccess("Registado com sucesso");
                 closeModels();
             }
           } catch {
@@ -182,7 +183,6 @@ const ModalContent = () => {
           <input type="password" placeholder="Repita a Palavra-Passe" value={againPas} onChange={(e) => setAgainPas(e.target.value)} />
           </div>
           <div className="FormRow" >
-          -
           <button type="submit" onClick={doRegister}>Registar</button>
           </div>
         </form>

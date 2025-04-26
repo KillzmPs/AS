@@ -4,6 +4,7 @@ import { fetchClasses } from './Classes.js';
 
 const SearchBox = () => {
   const [mode, setMode] = useState('flights');
+  const [idaVolta, setIdaVolta] = useState('ida');
   const [origin, setOrigin] = useState('');
   const [destination, setDestination] = useState('');
   const [classes, setClasses] = useState([]);
