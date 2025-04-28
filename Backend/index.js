@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const db = require('./Config/db');
 const nodemailer = require('nodemailer');
+const bcryptjs = require('bcryptjs');
 
 require('dotenv').config();
 
@@ -50,18 +51,26 @@ app.post('/api/utilizadores', (req, res) => {
         Utilizador.Telemovel, 
         Utilizador.Ativo_2FA, 
         Utilizador.Data_Aniversario,
+        Utilizador.Palavra_passe,
         Tipo_Utilizador.Nome_Tipo, 
         Pais.Nome_Pais 
       FROM 
         Utilizador
       INNER JOIN Pais ON Utilizador.Id_Pais = Pais.Id 
       INNER JOIN Tipo_Utilizador ON Utilizador.Id_Tipo_Utilizador = Tipo_Utilizador.Id
-      WHERE Utilizador.Email = ? AND Utilizador.Palavra_Passe = ?;
+      WHERE Utilizador.Email = ?;
     `;
   
-    db.query(query, [email, password], (err, results) => {
+    db.query(query, [email], async (err, results) => {
       if (err) return res.status(500).send(err);
-      res.json(results);
+      if(results.length == 0) {
+        return res.status(500).send(err);
+      }
+      const match = await bcryptjs.compare(password, results[0].Palavra_passe);
+      if(!match){
+        return res.status(500).send(err);
+      }
+      return res.json(results);
     });
   });
 
@@ -90,17 +99,38 @@ app.post('/api/utilizadores', (req, res) => {
       res.json(results);
     });
   });
-app.post('/api/createuser', (req, res) => {
+
+app.post('/api/createuser', async (req, res) => {
 
   const { nome, email, tele, data_aniversario, password, id_pais } = req.body;
   const query = `INSERT INTO Utilizador(Nome, Email, Telemovel, Data_Aniversario, Palavra_passe, Id_Pais) 
     VALUES (?, ?, ?, ?, ?, ?)`;
 
-  db.query(query, [nome, email, tele, data_aniversario, password, id_pais], (err, results) => {
+  const salt =  await bcryptjs.genSalt(10);
+  const hashedpass = await bcryptjs.hash(password, salt);
+
+  db.query(query, [nome, email, tele, data_aniversario, hashedpass, id_pais], (err, results) => {
     if (err) return res.status(500).send(err);
     res.json(results);
   });
 });
+
+app.post('/api/updateUserPass', async (req, res) => {
+
+  const {Id, password} = req.body;
+  const query = `UPDATE Utilizador
+  SET Palavra_passe = ?
+  WHERE Id = ?`;
+
+  const salt =  await bcryptjs.genSalt(10);
+  const hashedpass = await bcryptjs.hash(password, salt);
+
+  db.query(query, [hashedpass, Id], (err, results) => {
+    if (err) return res.status(500).send(err);
+    res.json(results);
+  });
+});
+
 
 app.get('/api/classes', (req, res) => {
     db.query('SELECT * FROM Classe;', (err, results) => {

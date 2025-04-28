@@ -79,3 +79,23 @@ export const verify2FACode = async (email, codigo) => {
   return await response.json();
 };
 
+export const updatePass = async (Id, password) => {
+  try {
+    const res = await fetch('http://localhost:5000/api/updateUserPass', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({Id, password})
+    });
+    
+    if (!res.ok) {
+      throw new Error('Erro inesperado ao autenticar');
+    }
+    
+    const data = await res.json();
+    return data;
+
+  } catch (error) {
+    console.error(error);
+    return { erro: 'Erro de rede ou servidor' };
+  }
+};
