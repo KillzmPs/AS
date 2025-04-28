@@ -7,6 +7,7 @@ import ModalContent from "./components/ModalContent";
 import { useModal } from "./context/ModalContext";
 import Modal from './components/Modal';
 import { useUser } from './context/UserContext';
+import Bilhetes from './pages/Bilhetes';
 
 const App = () => {
   const { activeModal } = useModal();
@@ -19,6 +20,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/areapessoal" element={<DadosPessoais />} />
+        <Route path='/bilhetes' element={<Bilhetes />} />
       </Routes>
 
       {activeModal && (

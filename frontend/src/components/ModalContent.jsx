@@ -69,23 +69,27 @@ const ModalContent = () => {
     if(!name || !email || !tele || !nasc || !selectedPais || !password || !againPas) {
       setError("Introduza todos os dados");
     } else {
-      if(password != againPas) {
-        setError("As Palavras passes não são iguais");
+      if(tele.length > 9){
+        setError("Número de telemovel inválido");
       } else {
-          try {
-            const result = await veriEmail(email);
-            if(result.length > 0) {
-              setError("Email já existe");
-            } else {
-                const result2 = await Register(name, email, tele, nasc, password, selectedPais);
-                const result3 = await Login(email, password);
-                login(result3[0]);
-                notifySuccess("Registado com sucesso");
-                closeModels();
+        if(password != againPas) {
+          setError("As Palavras passes não são iguais");
+        } else {
+            try {
+              const result = await veriEmail(email);
+              if(result.length > 0) {
+                setError("Email já existe");
+              } else {
+                  const result2 = await Register(name, email, tele, nasc, password, selectedPais);
+                  const result3 = await Login(email, password);
+                  login(result3[0]);
+                  notifySuccess("Registado com sucesso");
+                  closeModels();
+              }
+            } catch {
+              setError("Erro 401");
             }
-          } catch {
-            setError("Erro 401");
-          }
+        }
       }
     }
   }

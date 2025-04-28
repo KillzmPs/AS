@@ -74,6 +74,36 @@ app.post('/api/utilizadores', (req, res) => {
     });
   });
 
+  app.post('/api/loginId', (req, res) => {
+    const { id } = req.body;
+  
+    const query = `
+      SELECT
+        Utilizador.Id,
+        Utilizador.Nome, 
+        Utilizador.Email, 
+        Utilizador.Telemovel, 
+        Utilizador.Ativo_2FA, 
+        Utilizador.Data_Aniversario,
+        Utilizador.Palavra_passe,
+        Tipo_Utilizador.Nome_Tipo, 
+        Pais.Nome_Pais 
+      FROM 
+        Utilizador
+      INNER JOIN Pais ON Utilizador.Id_Pais = Pais.Id 
+      INNER JOIN Tipo_Utilizador ON Utilizador.Id_Tipo_Utilizador = Tipo_Utilizador.Id
+      WHERE Utilizador.Id = ?;
+    `;
+  
+    db.query(query, [id], async (err, results) => {
+      if (err) return res.status(500).send(err);
+      if(results.length == 0) {
+        return res.status(500).send(err);
+      }
+      return res.json(results);
+    });
+  });
+
 
   app.post('/api/emails', (req, res) => {
     const { email } = req.body;
@@ -126,6 +156,19 @@ app.post('/api/updateUserPass', async (req, res) => {
   const hashedpass = await bcryptjs.hash(password, salt);
 
   db.query(query, [hashedpass, Id], (err, results) => {
+    if (err) return res.status(500).send(err);
+    res.json(results);
+  });
+});
+
+app.post('/api/updateUserData', (req, res) => {
+
+  const {email, tele, fa, Id} = req.body;
+  const query = `UPDATE Utilizador
+  SET Email = ?, Telemovel = ?, Ativo_2FA = ? 
+  WHERE Id = ?`;
+
+  db.query(query, [email, tele, fa, Id], (err, results) => {
     if (err) return res.status(500).send(err);
     res.json(results);
   });

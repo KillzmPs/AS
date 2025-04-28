@@ -3,7 +3,7 @@ import { useUser } from "../context/UserContext";
 import { useNotification } from '../context/NotificationContext';
 import { useNavigate } from 'react-router-dom';
 import Box from '../components/Box';
-import { Login, updatePass } from '../components/Login';
+import { Login, Login2, updatePass, veriEmail, updateData } from '../components/Login';
 
 const DadosPessoais = () => {
   const { user, login } = useUser();
@@ -23,6 +23,20 @@ const DadosPessoais = () => {
 
   if (!user) return null; // ele renderiza a pagina primeiro , se n tiver isto ele mostra a pagina e uns milisegundos dps ele vai para o /
                           // serve para n mostrar o interior da pagina
+
+          
+  const [email, setEmail] = useState(user.Email);
+  const [tele, setTele] = useState(user.Telemovel);
+  const [fa, setFa] = useState(user.Ativo_2FA);
+  const handleFa = (e) => {
+    if(e.target.checked == true){
+      setFa(1);
+    } else {
+      setFa(0);
+    }
+
+  }
+
   const changePass = async (e) => {
     e.preventDefault();
     if(!pass || !newpass || !repnewpass) {
@@ -52,9 +66,49 @@ const DadosPessoais = () => {
     }
   }
 
+  const changeData = async (e) => {
+    e.preventDefault();
+    if(fa == 99) {
+      setFa(user.Ativo_2FA);
+    }
+
+
+    if(tele == user.Telemovel && email == user.Email && fa == user.Ativo_2FA) {
+      notifySuccess("Dados não alterados");
+    } else {
+      if(tele.length > 9) {
+        notifyError("Número de telemovel muito grande");
+      } else {
+        if(email == user.Email) {
+          const result1 = await updateData(user.Id, user.Email, tele, fa);
+          notifySuccess("Dados alterados com sucesso");
+          const result2 = await Login2(user.Id);
+          login(result2[0]);
+  
+        } else {
+          try {
+            const result = await veriEmail(email);
+            if(result.length > 0) {
+              notifyError("Email já existe");
+            } else {
+              const result1 = await updateData(user.Id, email, tele, fa);
+              notifySuccess("Dados alterados com sucesso");
+              const result2 = await Login2(user.Id);
+              login(result2[0]);
+            }
+          } catch {
+            notifyError("Erro 401");
+          }
+        }
+      }
+      
+    }
+  }
+
   return (
     <div>
-      <h1 style={{color:"White", textAlign:"center"}}>-Tenho conta-</h1>
+      <title>Dados Pessoais</title>
+      <h1 style={{color:"White", textAlign:"center"}}>-Dados Pessoais-</h1>
       <Box>
         <div className='Box_Header'>
           <div className='Box_Title'>
@@ -65,32 +119,32 @@ const DadosPessoais = () => {
         <div className='Box_Body'>
           <div className='row1'>
             <div className='cont1'>
-              <input type="text" value={user.Nome} contentEditable="false" />
+              <input type="text" value={user.Nome} readOnly={true} />
               <label>Nome</label>
             </div>
             <div className='cont2'>
-              <input type="number"  defaultValue={user.Telemovel} />
+              <input type="text"  defaultValue={user.Telemovel}  onChange={(e) => setTele(e.target.value)} />
               <label>Telemovel</label>
             </div>
           </div>
           <div className='row2'>
             <div className='cont1'>
-              <input type="email" defaultValue={user.Email}   />
+              <input type="email" defaultValue={user.Email}   onChange={(e) => setEmail(e.target.value)} />
               <label>Nome</label>
             </div>
             <div className='cont2'>
-              <input type="text" value={new Date(user.Data_Aniversario).toLocaleDateString('pt-PT')}  contentEditable="false" />
+              <input type="text" value={new Date(user.Data_Aniversario).toLocaleDateString('pt-PT')} readOnly={true} />
               <label>Data de Aniversário</label>
             </div>
           </div>
         </div>
         <div className='Box_Bot'>
           <div className="button-container">
-            <button>Guardar Dados</button>
+            <button onClick={changeData} >Guardar Dados</button>
           </div>
           <div className="checkbox-container">
             <label className="custom-checkbox">
-              <input type="checkbox" id="2fa" />
+              <input type="checkbox" id="2fa" defaultChecked={fa} onChange={handleFa}/>
               <span className="checkmark"></span>
               Autenticação 2 Fatores
             </label>

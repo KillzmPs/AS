@@ -9,9 +9,7 @@ const Recommendations = () => {
     const loadRecommendations = async () => {
       const data = await fetchClasses();
       setRecommendations(data); 
-      console.log(data);
     };
-    
     loadRecommendations();
   }, []);
 

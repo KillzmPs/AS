@@ -55,7 +55,7 @@ const Navbar = () => {
                       </div>
                     </div>
                     <div className='section'>
-                      <div className='content'>
+                      <div className='content' onClick={() => navigate("/bilhetes")}>
                         Os Meus Bilhetes
                       </div>
                     </div>

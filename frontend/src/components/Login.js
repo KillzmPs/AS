@@ -19,6 +19,27 @@ export const Login = async (email, password) => {
     }
 };
 
+export const Login2 = async (id) => {
+  try {
+    const res = await fetch('http://localhost:5000/api/loginId', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id })
+    });
+    
+    if (!res.ok) {
+      throw new Error('Erro inesperado ao autenticar');
+    }
+
+    const data = await res.json();
+    return data;
+
+  } catch (error) {
+    console.error(error);
+    return { erro: 'Erro de rede ou servidor' };
+  }
+};
+
 export const veriEmail = async (email) => {
   try {
     const res = await fetch('http://localhost:5000/api/emails', {
@@ -85,6 +106,27 @@ export const updatePass = async (Id, password) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({Id, password})
+    });
+    
+    if (!res.ok) {
+      throw new Error('Erro inesperado ao autenticar');
+    }
+    
+    const data = await res.json();
+    return data;
+
+  } catch (error) {
+    console.error(error);
+    return { erro: 'Erro de rede ou servidor' };
+  }
+};
+
+export const updateData = async (Id, email, tele, fa) => {
+  try {
+    const res = await fetch('http://localhost:5000/api/updateUserData', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({email, tele, fa, Id})
     });
     
     if (!res.ok) {
