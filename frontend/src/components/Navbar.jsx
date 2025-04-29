@@ -61,7 +61,12 @@ const Navbar = () => {
                     </div>
                     <div className='section'>
                       <div className='content'>
-                        Tickets
+                        Criar Tickets
+                      </div>
+                    </div>
+                    <div className='section'>
+                      <div className='content'>
+                        Os Meus Tickets
                       </div>
                     </div>
                     <div className='section'>
