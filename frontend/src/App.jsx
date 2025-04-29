@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
@@ -11,7 +11,14 @@ import Bilhetes from './pages/Bilhetes';
 
 const App = () => {
   const { activeModal } = useModal();
-  const { user, logout } = useUser();
+  const { user, login , logout} = useUser();
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      login(JSON.parse(storedUser));
+    }
+  }, []);
 
   return (
     <div>

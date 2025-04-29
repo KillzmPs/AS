@@ -21,7 +21,8 @@ const DadosPessoais = () => {
     }
   }, [user, navigate]); // quando estes valores mudarem ele repete a funcao
 
-  if (!user) return null; // ele renderiza a pagina primeiro , se n tiver isto ele mostra a pagina e uns milisegundos dps ele vai para o /
+  if (!user) return null;
+  // ele renderiza a pagina primeiro , se n tiver isto ele mostra a pagina e uns milisegundos dps ele vai para o /
                           // serve para n mostrar o interior da pagina
 
           

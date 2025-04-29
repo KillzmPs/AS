@@ -12,7 +12,7 @@ const ModalContent = () => {
   const [error, setError ] = useState("")
   const [ email, setEmail ] = useState("");
   const [ password, setPassword ] = useState("");
-  const { login } = useUser(); 
+  const { user, login } = useUser(); 
   const [pais, setPais] = useState([]);
   const [selectedPais, setSelectedPais] = useState('');
   const [name, setName] = useState('');

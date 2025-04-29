@@ -230,6 +230,98 @@ app.post('/api/2fa/verify', (req, res) => {
   }
 });
 
+app.post('/api/bilhete', async (req, res) => {
+
+  const { id } = req.body; 
+
+  const query = `
+    SELECT *
+    FROM Bilhete
+    WHERE Id_Utilizador = ?
+  `;
+
+  db.query(query, [id], (err, results) => {
+    if (err) return res.status(500).send(err);
+    res.json(results);
+  });
+
+});
+
+
+app.post('/api/bilhetevoo', async (req, res) => {
+
+  const { ids } = req.body; 
+
+  const placeholders = ids.map(() => '?').join(',');
+
+  const query = `
+    SELECT 
+      l.Lugar, 
+      a1.Nome AS Aeroporto_Origem, 
+      a2.Nome AS Aeroporto_Destino, 
+      Companhia_Aerea.Nome AS Companhia_Aerea, 
+      Companhia_Aerea.Abreviacao, 
+      v.Data_Partida, 
+      v.Data_Chegada, 
+      Classe.Tipo_Classe 
+    FROM Lugar AS l 
+    INNER JOIN Viagem AS v ON l.Id_Viagem = v.Id 
+    INNER JOIN Aeroporto AS a1 ON v.Id_Aeroporto_Origem = a1.Id 
+    INNER JOIN Aeroporto AS a2 ON v.Id_Aeroporto_Destino = a2.Id 
+    INNER JOIN Companhia_Aerea ON v.Id_Companhia_Aerea = Companhia_Aerea.Id 
+    INNER JOIN Classe ON v.Id_Classe = Classe.Id 
+    WHERE l.Id IN (${placeholders})
+    ORDER BY v.Data_Partida
+  `;
+
+  db.query(query, ids, (err, results) => {
+    if (err) return res.status(500).send(err);
+    res.json(results);
+  });
+
+});
+
+app.post('/api/bilhetehotel', async (req, res) => {
+
+  const { id } = req.body; 
+
+  const query = `
+    select Hotel.Nome,
+     Quarto.Numero_Quarto
+     FROM Quarto
+     INNER JOIN Hotel on Quarto.Id_Hotel = Hotel.Id
+     WHERE Quarto.Id = ?;
+  `;
+
+  db.query(query, [id], (err, results) => {
+    if (err) return res.status(500).send(err);
+    res.json(results);
+  });
+
+});
+
+
+app.post('/api/pagamento', async (req, res) => {
+
+  const { id } = req.body; 
+
+  const query = `
+    SELECT Pagamento.Data_Pagamento,
+     Pagamento.Preco,
+     Estado.Tipo_Estado,
+     Tipo_Pagamento.Tipo_Pagamento
+     FROM Pagamento 
+     INNER JOIN Estado ON Pagamento.Id_Estado_Pagamento = Estado.Id
+     INNER JOIN Tipo_Pagamento on Pagamento.Id_Tipo_Pagamento = Tipo_Pagamento.Id
+    WHERE Pagamento.Id_Bilhete = ?;
+  `;
+
+  db.query(query, [id], (err, results) => {
+    if (err) return res.status(500).send(err);
+    res.json(results);
+  });
+
+});
 
 
 const PORT = 5000;
