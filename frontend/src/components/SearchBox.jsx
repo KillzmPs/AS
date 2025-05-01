@@ -90,7 +90,7 @@ const SearchBox = () => {
               </>
             )}
             <input type="number" placeholder="Pessoas" className="input" min="1" />
-            
+            {mode === 'flights' ? (
             <select
               value={selectedClass}
               onChange={handleClassChange}
@@ -103,6 +103,7 @@ const SearchBox = () => {
                 </option>
               ))}
             </select>
+            ): (<></>)}
 
             <button className="input search-button right-rounded">
               <img
