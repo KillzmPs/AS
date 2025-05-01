@@ -134,9 +134,9 @@ const Bilhetes = () => {
                   {info.pagamento && info.pagamento.map((pagamento, index) => (
                     <div key={index} className='BilhetePagamento'>
                       <div className='PagamentoContent'>
-                        Data: {new Date(pagamento.Data_Pagamento).toLocaleDateString('pt-PT')}
+                        Data: {new Date(bilhete.Data_emissao).toLocaleDateString('pt-PT')}
                       </div>
-                      <div className='PagamentoEstado' style={{backgroundColor: pagamento.Cor, color: pagamento.Cor === "Aguardar Pagamento" ? "#333" : "white"}}>
+                      <div className='PagamentoEstado' style={{backgroundColor: pagamento.Cor, color: pagamento.Tipo_Estado === "Aguardar Pagamento" ? "#333" : "white"}}>
                         {pagamento.Tipo_Estado}
                       </div>
                       <div className='PagamentoContent'>
