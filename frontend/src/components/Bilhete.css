@@ -1,0 +1,110 @@
+.BilheteContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    min-width: 100%;
+  }
+  
+  .BilheteBox {
+    width: 44%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 50px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    height: 300px; 
+  }
+  
+  .BilheteHeader {
+    width: 100%;
+    text-align: right;
+    margin-bottom: 10px;
+  }
+  
+  .BilheteBody {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+  }
+  
+  .BilheteTipo {
+    display: flex;
+    flex-direction: column; 
+    width: 15%;
+  }
+  
+  
+  .BilheteVoo, .BilheteHotel {
+    text-align: center;
+    font-weight: bold;
+    font-size: 25px;
+    align-items: center;
+    align-content: center;
+    text-align: center
+  }
+
+  .BilheteVoo {
+    height: 65%;
+  }
+
+  .BilheteHotel {
+    height: 35%;
+  }
+  
+  .BilheteViagem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    width: 65%;
+    border-right: 1px solid black;
+    height: 95%;
+  }
+
+  .BilheteAero {
+    height: 50%;
+    align-content: center;
+    display: flex;
+    flex-direction: row;
+    height: 50%;
+  }
+
+  .BilheteCompanhia {
+    display: flex;
+    flex-direction: column; 
+    align-content: center;
+    justify-content: center;
+  }
+
+  .BilheteCompanhia img{
+    height: 50px;
+  }
+
+  .ViagemContent {
+    padding: 10px;
+    align-content: center;
+    justify-content: center;
+  }
+
+  .Viagens {
+    height: 75%;
+  }
+
+  .BilheteQuarto {
+    width: 100%;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+    height: 35%;
+  }
+
+
+  .Tempo {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+
+
+  
