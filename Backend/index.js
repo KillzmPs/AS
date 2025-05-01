@@ -250,31 +250,30 @@ app.post('/api/bilhete', async (req, res) => {
 
 app.post('/api/bilhetevoo', async (req, res) => {
 
-  const { ids } = req.body; 
+  const { id } = req.body; 
 
-  const placeholders = ids.map(() => '?').join(',');
 
   const query = `
-    SELECT 
-      l.Lugar, 
-      a1.Nome AS Aeroporto_Origem, 
-      a2.Nome AS Aeroporto_Destino, 
-      Companhia_Aerea.Nome AS Companhia_Aerea, 
-      Companhia_Aerea.Abreviacao, 
-      v.Data_Partida, 
-      v.Data_Chegada, 
-      Classe.Tipo_Classe 
-    FROM Lugar AS l 
-    INNER JOIN Viagem AS v ON l.Id_Viagem = v.Id 
-    INNER JOIN Aeroporto AS a1 ON v.Id_Aeroporto_Origem = a1.Id 
-    INNER JOIN Aeroporto AS a2 ON v.Id_Aeroporto_Destino = a2.Id 
-    INNER JOIN Companhia_Aerea ON v.Id_Companhia_Aerea = Companhia_Aerea.Id 
-    INNER JOIN Classe ON v.Id_Classe = Classe.Id 
-    WHERE l.Id IN (${placeholders})
-    ORDER BY v.Data_Partida
+    SELECT Bilhete_Lugar.Id_Bilhete,
+     l.Lugar,
+     a1.Nome AS Aeroporto_Origem,
+     a2.Nome AS Aeroporto_Destino,
+     Companhia_Aerea.Nome AS Companhia_Aerea,
+     Companhia_Aerea.Abreviacao, 
+     v.Data_Partida, v.Data_Chegada, 
+     Classe.Tipo_Classe 
+     FROM Bilhete_Lugar 
+     INNER join Lugar AS l on Bilhete_Lugar.Id_Lugar = l.Id 
+     INNER JOIN Viagem AS v ON l.Id_Viagem = v.Id 
+     INNER JOIN Aeroporto AS a1 ON v.Id_Aeroporto_Origem = a1.Id 
+     INNER JOIN Aeroporto AS a2 ON v.Id_Aeroporto_Destino = a2.Id 
+     INNER JOIN Companhia_Aerea ON v.Id_Companhia_Aerea = Companhia_Aerea.Id 
+     INNER JOIN Classe ON v.Id_Classe = Classe.Id 
+     WHERE Id_Bilhete = ?
+    ORDER BY v.Data_Partida;
   `;
 
-  db.query(query, ids, (err, results) => {
+  db.query(query, id, (err, results) => {
     if (err) return res.status(500).send(err);
     res.json(results);
   });
@@ -286,11 +285,13 @@ app.post('/api/bilhetehotel', async (req, res) => {
   const { id } = req.body; 
 
   const query = `
-    select Hotel.Nome,
-     Quarto.Numero_Quarto
-     FROM Quarto
-     INNER JOIN Hotel on Quarto.Id_Hotel = Hotel.Id
-     WHERE Quarto.Id = ?;
+    SELECT Id_Bilhete, 
+    Hotel.Nome, 
+    Quarto.Numero_Quarto 
+    FROM Bilhete_Quarto 
+    INNER JOIN Quarto ON Bilhete_Quarto.Id_Quarto = Quarto.Id 
+    INNER JOIN Hotel on Quarto.Id_Hotel = Hotel.Id 
+    WHERE Id_Bilhete = ?;
   `;
 
   db.query(query, [id], (err, results) => {
