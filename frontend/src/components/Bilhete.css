@@ -1,110 +1,168 @@
 .BilheteContainer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    min-width: 100%;
-  }
-  
-  .BilheteBox {
-    width: 44%;
-    background-color: white;
-    padding: 20px;
-    border-radius: 50px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
-    height: 300px; 
-  }
-  
-  .BilheteHeader {
-    width: 100%;
-    text-align: right;
-    margin-bottom: 10px;
-  }
-  
-  .BilheteBody {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-  }
-  
-  .BilheteTipo {
-    display: flex;
-    flex-direction: column; 
-    width: 15%;
-  }
-  
-  
-  .BilheteVoo, .BilheteHotel {
-    text-align: center;
-    font-weight: bold;
-    font-size: 25px;
-    align-items: center;
-    align-content: center;
-    text-align: center
-  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center; 
+  gap: 30px;
+  padding: 20px;
+}
 
-  .BilheteVoo {
-    height: 65%;
-  }
+.BilheteBox {
+  width: 45%;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 30px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+}
 
-  .BilheteHotel {
-    height: 35%;
-  }
-  
-  .BilheteViagem {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center;
-    width: 65%;
-    border-right: 1px solid black;
-    height: 95%;
-  }
+.BilheteBox:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
 
-  .BilheteAero {
-    height: 50%;
-    align-content: center;
-    display: flex;
-    flex-direction: row;
-    height: 50%;
-  }
+.BilheteHeader {
+  text-align: right;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
 
-  .BilheteCompanhia {
-    display: flex;
-    flex-direction: column; 
-    align-content: center;
-    justify-content: center;
-  }
+.BilheteBody {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
 
-  .BilheteCompanhia img{
-    height: 50px;
-  }
+.BilheteTipo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 10%;
+}
 
-  .ViagemContent {
-    padding: 10px;
-    align-content: center;
-    justify-content: center;
-  }
+.BilheteVoo, .BilheteHotel {
+  font-weight: bold;
+  font-size: 18px;
+  color: #333;
+  justify-content: center;
+  align-content: center;
+  font-size: 20px;
+}
 
-  .Viagens {
-    height: 75%;
-  }
+.BilheteVoo {
+  height: 75%;
+}
 
-  .BilheteQuarto {
-    width: 100%;
-    text-align: center;
-    align-content: center;
-    justify-content: center;
-    height: 35%;
-  }
+.BilheteHotel {
+  height: 25%;
+}
 
+.BilheteViagem {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  padding-right: 10px;
+  border-right: 1px solid #ccc;
+}
 
-  .Tempo {
-    display: flex;
-    justify-content: space-between;
-  }
-  
+.BilheteAero {
+  display: flex;
+  align-items: center;
+  height: 50%;
+}
 
+.BilheteCompanhia {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  height: 50%;
+}
 
-  
+.BilheteCompanhia img {
+  height: 40px;
+  object-fit: contain;
+}
+
+.ViagemContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 14px;
+  width: 100%;
+  height: 50%;
+}
+
+.Viagens {
+  height: 130px;
+}
+
+.Tempo {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.Aeroportos {
+  color: #666;
+  font-size: 13px;
+}
+
+.BilheteQuarto {
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  color: #444;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  gap: 8px;
+  height: 25%;
+}
+
+.BilhetePagamento {
+  width: 25%;
+}
+
+.PagamentoContent {
+  text-align: right;
+  font-size: 13px;
+  color: #666;
+  padding-bottom: 20px;
+}
+
+.PagamentoEstado {
+  margin-top: 20px;
+  text-align: center;
+  padding: 6px 12px;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 15px;
+  margin: 10px auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  margin-left: 30px;
+  font-weight: bold;
+}
+
+.PagamentoPreco {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #222;
+  margin-top: 20px;
+}
+
+hr {
+  border: none;
+  border-top: 1px dashed #bbb;
+  margin: 5px 0;
+}

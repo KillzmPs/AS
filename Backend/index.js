@@ -286,6 +286,8 @@ app.post('/api/bilhetehotel', async (req, res) => {
 
   const query = `
     SELECT Id_Bilhete, 
+    Data_Inicio,
+    Data_Fim,
     Hotel.Nome, 
     Quarto.Numero_Quarto 
     FROM Bilhete_Quarto 
@@ -310,6 +312,7 @@ app.post('/api/pagamento', async (req, res) => {
     SELECT Pagamento.Data_Pagamento,
      Pagamento.Preco,
      Estado.Tipo_Estado,
+     Estado.Cor,
      Tipo_Pagamento.Tipo_Pagamento
      FROM Pagamento 
      INNER JOIN Estado ON Pagamento.Id_Estado_Pagamento = Estado.Id
