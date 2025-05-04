@@ -4,6 +4,7 @@ import {BrowserRouter} from "react-router-dom"
 import { ModalProvider } from './context/ModalContext'
 import { UserProvider } from './context/UserContext.jsx'
 import { NotificationProvider } from './context/NotificationContext.jsx'
+import { BilheteProvider } from './context/BilheteContext.jsx'
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
@@ -11,11 +12,13 @@ createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <NotificationProvider>
         <UserProvider>
-          <ModalProvider>
-            <App />
-          </ModalProvider>
+          <BilheteProvider>
+            <ModalProvider>
+              <App />
+            </ModalProvider>
+          </BilheteProvider>
         </UserProvider>
       </NotificationProvider>
     </BrowserRouter>
-  </StrictMode>,
+  </StrictMode>
 )

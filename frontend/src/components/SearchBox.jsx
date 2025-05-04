@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './SearchBox.css';
 import { fetchClasses } from './Classes.js'; 
+import { useNotification } from '../context/NotificationContext';
+import { useBilhete } from '../context/BilheteContext.jsx';
+import { useNavigate } from 'react-router-dom';
 
 const SearchBox = () => {
   const [mode, setMode] = useState('flights');
@@ -9,6 +12,12 @@ const SearchBox = () => {
   const [destination, setDestination] = useState('');
   const [classes, setClasses] = useState([]);
   const [selectedClass, setSelectedClass] = useState('');
+  const [DateOrigin, setDateOrigin ] = useState('');
+  const [DateDestination, setDateDestination ] = useState('');
+  const [pessoas, setPessoas] = useState('');
+  const { notifyError } = useNotification();
+  const {tipoBilhete, setTipoBilhete} = useBilhete();
+  const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -39,8 +48,39 @@ const SearchBox = () => {
     console.log(idaVolta);
     console.log(origin);
     console.log(destination);
-    console.log(classes);
     console.log(selectedClass);
+    console.log(DateOrigin);
+    console.log(DateDestination);
+    console.log(pessoas);
+
+
+    if(mode === "flights") {
+      if(idaVolta === "idaevolta") {
+        if(!origin || !destination || !selectedClass || !DateOrigin || !DateDestination || !pessoas) {
+          notifyError("Preencha todos os campos");
+        } else {
+          setTipoBilhete("idaevolta");
+          notifyError("sucesso");
+        }
+      } else {
+        if(!origin || !destination || !selectedClass || !DateOrigin || !pessoas) {
+          notifyError("Preencha todos os campos");
+        } else {
+          setTipoBilhete("ida");
+          notifyError("sucesso");
+        }
+      }
+    } else {
+      if(!origin || !DateOrigin || !DateDestination || !pessoas) {
+        notifyError("Preencha todos os campos");
+      } else {
+        setTipoBilhete("hotels");
+          notifyError("sucesso");
+      }
+    }
+
+    navigate("/CriacaoBilhete");
+
   }
 
   return (
@@ -77,14 +117,14 @@ const SearchBox = () => {
               <>
               <div className='FlightsOption'>
                 <div className='Flightscheck'>
-                  <label className="custom-checkbox" style={{color: "black"}}>
+                  <label className="custom-checkbox" style={{color: "white"}}>
                     <input type="checkbox" id="IdaVolta" checked={idaVolta === "idaevolta"} onChange={() => handleFlightChange("idaevolta")}/>
                     <span className="checkmark"></span>
                     Ida e Volta
                   </label>
                 </div>
                 <div className='Flightscheck'> 
-                  <label className="custom-checkbox" style={{color: "black"}}>
+                  <label className="custom-checkbox" style={{color: "white"}}>
                     <input type="checkbox" id="Ida"  checked={idaVolta === "ida"} onChange={() => handleFlightChange("ida")}/>
                     <span className="checkmark" ></span>
                     Ida
@@ -108,17 +148,18 @@ const SearchBox = () => {
                   value={destination}
                   onChange={(e) => setDestination(e.target.value)}
                 />
-                {idaVolta === "idaevolta" ? (<input type="date" className="input" />) : (<></>)}
-                <input type="date" className="input" />
+                {idaVolta === "idaevolta" ? (<><input type="date" className="input" value={DateOrigin} onChange={(e) => setDateOrigin(e.target.value)} /> 
+                <input type="date" className="input" value={DateDestination} onChange={(e) => setDateDestination(e.target.value)} /></>) : 
+                ( <input type="date" className="input" value={DateOrigin} onChange={(e) => setDateOrigin(e.target.value)} /> )}
               </>
             ) : (
               <>
-                <input type="text" placeholder="Local" className="input left-rounded" />
-                <input type="date" className="input" />
-                <input type="date" className="input" />
+                <input type="text" placeholder="Local" className="input left-rounded" value={origin} onChange={(e) => setOrigin(e.target.value)} />
+                <input type="date" className="input" value={DateOrigin} onChange={(e) => setDateOrigin(e.target.value)} />
+                <input type="date" className="input" value={DateDestination} onChange={(e) => setDateDestination(e.target.value)} />
               </>
             )}
-            <input type="number" placeholder="Pessoas" className="input" min="1" />
+            <input type="number" placeholder="Pessoas" className="input" min="1" max="10" value={pessoas} onChange={(e) => setPessoas(e.target.value)} />
             {mode === 'flights' ? (
             <select
               value={selectedClass}
