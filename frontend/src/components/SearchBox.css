@@ -98,6 +98,20 @@
     height: 25px;
   }
 
+  .FlightsOption {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+  }
+
+  .Flightscheck {
+    width: auto;
+  }
+
 
   
   

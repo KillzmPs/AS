@@ -4,7 +4,7 @@ import { fetchClasses } from './Classes.js';
 
 const SearchBox = () => {
   const [mode, setMode] = useState('flights');
-  const [idaVolta, setIdaVolta] = useState('ida');
+  const [idaVolta, setIdaVolta] = useState('idaevolta');
   const [origin, setOrigin] = useState('');
   const [destination, setDestination] = useState('');
   const [classes, setClasses] = useState([]);
@@ -19,6 +19,10 @@ const SearchBox = () => {
     loadClasses();
   
   }, []);
+
+  const handleFlightChange = (value) => {
+    setIdaVolta(value);
+  }
   
 
   const handleSwap = () => {
@@ -29,6 +33,15 @@ const SearchBox = () => {
   const handleClassChange = (e) => {
     setSelectedClass(e.target.value); 
   };
+
+  const clicar = () => {
+    console.log(mode);
+    console.log(idaVolta);
+    console.log(origin);
+    console.log(destination);
+    console.log(classes);
+    console.log(selectedClass);
+  }
 
   return (
     <div className="search-container-outer">
@@ -62,6 +75,22 @@ const SearchBox = () => {
           <div className="input-row">
             {mode === 'flights' ? (
               <>
+              <div className='FlightsOption'>
+                <div className='Flightscheck'>
+                  <label className="custom-checkbox" style={{color: "black"}}>
+                    <input type="checkbox" id="IdaVolta" checked={idaVolta === "idaevolta"} onChange={() => handleFlightChange("idaevolta")}/>
+                    <span className="checkmark"></span>
+                    Ida e Volta
+                  </label>
+                </div>
+                <div className='Flightscheck'> 
+                  <label className="custom-checkbox" style={{color: "black"}}>
+                    <input type="checkbox" id="Ida"  checked={idaVolta === "ida"} onChange={() => handleFlightChange("ida")}/>
+                    <span className="checkmark" ></span>
+                    Ida
+                  </label>
+                </div>
+              </div>
                 <input
                   type="text"
                   placeholder="Origem"
@@ -79,7 +108,7 @@ const SearchBox = () => {
                   value={destination}
                   onChange={(e) => setDestination(e.target.value)}
                 />
-                <input type="date" className="input" />
+                {idaVolta === "idaevolta" ? (<input type="date" className="input" />) : (<></>)}
                 <input type="date" className="input" />
               </>
             ) : (
@@ -105,7 +134,7 @@ const SearchBox = () => {
             </select>
             ): (<></>)}
 
-            <button className="input search-button right-rounded">
+            <button className="input search-button right-rounded" onClick={clicar}>
               <img
                 className="image-search"
                 src="https://www.freeiconspng.com/thumbs/search-icon-png/search-icon-png-21.png"
