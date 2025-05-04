@@ -1,0 +1,82 @@
+.ContainerGeral {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+.progress-container {
+  position: relative;
+  padding: 40px 0;
+  margin: 0 20px;
+  width: 400px;
+}
+  
+.progress-bar-fundo {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background-color: #e5e7eb;
+  z-index: 1;
+}
+  
+
+.progress-bar-verde {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 6px;
+  background-color: #22c55e;
+  transition: width 0.3s ease;
+  z-index: 2;
+}
+
+.progress-bar-fundo,
+.progress-bar-verde {
+  top: 55px; 
+}
+
+  
+.progress-etapas {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  z-index: 3;
+}
+  
+.bolinha {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #e5e7eb;
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px #e5e7eb;
+}
+  
+.bolinha.concluido,
+.bolinha.atual {
+  background-color: #22c55e;
+  color: #fff;
+  box-shadow: 0 0 0 2px #22c55e;
+}
+  
+.etapa-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.etapa-nome {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: white;
+  text-align: center;
+}

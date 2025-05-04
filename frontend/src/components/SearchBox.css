@@ -9,108 +9,106 @@
 }
 
 .search-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
-  }
-  
-  .search-box {
-    background: #2f2f5b;
-    padding: 2rem;
-    border-radius: 20px;
-    max-width: 1000px;
-    width: 95%;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-
-  }
-  
-  .search-tabs {
-    display: flex;
-    gap: 50px;
-    margin-bottom: 5rem;
-  }
-  
-  .tab {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 20px;
-    background-color: transparent;
-    border: 2px solid transparent;
-    border-radius: 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s;
-    background-color: lightslategray;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
 }
   
-  .tab.active {
-    background-color: #12122b;
-    border-bottom: 2px;
-    color: white;
-  }
+.search-box {
+  background: #2f2f5b;
+  padding: 2rem;
+  border-radius: 20px;
+  max-width: 1000px;
+  width: 95%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
   
-  .input-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0;
-  }
+.search-tabs {
+  display: flex;
+  gap: 50px;
+  margin-bottom: 5rem;
+}
   
-  .input {
-    padding: 0.8rem 1rem;
-    border: 1px solid #ccc;
-    border-left: none;
-    outline: none;
-    flex: 1;
-    min-width: 100px;
-    appearance: none;
-  }
-
-  .input option {
-    border-radius: 10px; 
-  }
+.tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  background-color: transparent;
+  border: 2px solid transparent;
+  border-radius: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  background-color: lightslategray;
+}
   
-  .left-rounded {
-    border-radius: 25px 0 0 25px;
-    border-left: 1px solid #ccc;
-  }
+.tab.active {
+  background-color: #12122b;
+  border-bottom: 2px;
+  color: white;
+}
   
-  .right-rounded {
-    border-radius: 0 25px 25px 0;
-    border-right: 1px solid #ccc;
-  }
+.input-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+}
   
-  .search-button, .switch {
-    background-color: white;
-    cursor: pointer;
-    font-weight: bold;
-  }
+.input {
+  padding: 0.8rem 1rem;
+  border: 1px solid #ccc;
+  border-left: none;
+  outline: none;
+  flex: 1;
+  min-width: 100px;
+  appearance: none;
+}
 
+.input option {
+  border-radius: 10px; 
+}
+  
+.left-rounded {
+  border-radius: 25px 0 0 25px;
+  border-left: 1px solid #ccc;
+}
+  
+.right-rounded {
+  border-radius: 0 25px 25px 0;
+  border-right: 1px solid #ccc;
+}
+  
+.search-button, .switch {
+  background-color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
 
-  .image-tab {
-    width: 50px;
-    height: 50px;
-  }
+.image-tab {
+  width: 50px;
+  height: 50px;
+}
 
-  .image-search{
-    width: 25px;
-    height: 25px;
-  }
+.image-search{
+  width: 25px;
+  height: 25px;
+}
 
-  .FlightsOption {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    align-items: center;
-    justify-content: center;
-    height: 70px;
-  }
+.FlightsOption {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  height: 70px;
+}
 
-  .Flightscheck {
-    width: auto;
-  }
+.Flightscheck {
+  width: auto;
+}
 
 
   

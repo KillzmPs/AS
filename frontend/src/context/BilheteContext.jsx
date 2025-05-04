@@ -8,7 +8,7 @@ export function useBilhete() {
 
 export function BilheteProvider({ children }) {
     const [tipoBilhete, setTipoBilhete] = useState(null);
-    const [passoAtual, setPassoAtual] = useState(1);
+    const [passoAtual, setPassoAtual] = useState(2);
 
     const PassosBilhetes = {
         hotels: 3,
