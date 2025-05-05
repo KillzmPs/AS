@@ -9,6 +9,10 @@ export function useBilhete() {
 export function BilheteProvider({ children }) {
     const [tipoBilhete, setTipoBilhete] = useState(null);
     const [passoAtual, setPassoAtual] = useState(2);
+    const [Hotel, setHotel] = useState(null);
+
+    const guardarHoteis = (dados) => setHotel(dados);
+    const eliminarHoteis = () => setHotel(null);
 
     const PassosBilhetes = {
         hotels: 3,
@@ -19,7 +23,7 @@ export function BilheteProvider({ children }) {
     const totalPasso = PassosBilhetes[tipoBilhete] || 1;
 
     return (
-        <BilheteContext.Provider value={{ tipoBilhete, setTipoBilhete, passoAtual, setPassoAtual, totalPasso }}>
+        <BilheteContext.Provider value={{ tipoBilhete, setTipoBilhete, passoAtual, setPassoAtual, guardarHoteis, eliminarHoteis, Hotel, totalPasso }}>
             {children}
         </BilheteContext.Provider>
     );

@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: "flyeasyofficial@gmail.com", 
-    pass: "xsulwgudolgdqzdm"
+    pass: "gcrfmebfwajsrdai"
   }
 });
 
@@ -143,6 +143,22 @@ app.post('/api/createuser', async (req, res) => {
     if (err) return res.status(500).send(err);
     res.json(results);
   });
+
+  const mailOptions = {
+    from: 'flyeasyofficial@gmail.com',
+    to: email,
+    subject: 'Registo',
+    text: `Olá\nO seu registo ${nome} foi concluido com sucesso\nA equipa da FlyEasy`
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Erro ao enviar email:', error);
+      return res.status(500).json({ mensagem: 'Erro ao enviar o email' });
+    }
+    res.status(200).json({ mensagem: 'Código enviado com sucesso' });
+  });
+
 });
 
 app.post('/api/updateUserPass', async (req, res) => {
@@ -324,6 +340,97 @@ app.post('/api/pagamento', async (req, res) => {
     if (err) return res.status(500).send(err);
     res.json(results);
   });
+
+});
+
+app.post('/api/mostrarHoteis', async (req, res) => {
+
+  const { nome, pessoas} = req.body; 
+
+  const query = `
+    SELECT Hotel.Id AS Id_Hotel,
+    COUNT(Quarto.Numero_Quarto) AS Quartos_Disponiveis, 
+    Hotel.Nome,
+    Hotel.Morada, 
+    Hotel.Lotacao, 
+    Hotel.Avaliacao, 
+    Pais.Nome_Pais 
+    FROM Quarto 
+    INNER JOIN Hotel ON Quarto.Id_Hotel = Hotel.Id 
+    INNER JOIN Pais ON Hotel.Id_Pais = Pais.Id 
+    WHERE Hotel.Morada LIKE ? AND Quarto.Id_Disponivel = 1 
+    GROUP BY Hotel.Id 
+    HAVING COUNT(Quarto.Numero_Quarto) >= ? ;
+  `;
+
+  db.query(query, [nome, pessoas], (err, results) => {
+    if (err) return res.status(500).send(err);
+    res.json(results);
+  });
+
+});
+
+app.post('/api/mostrarVoos', async (req, res) => {
+
+  const { aero1, aero2, data_inicio, classe, pessoas } = req.body; 
+
+  const query = `
+    SELECT 
+    a1.Id AS Id_Aeroporto_Origem,
+    a1.Nome AS Nome_Aeroporto_Origem,
+    a2.Id AS Id_Aeroporto_Destino,
+    a2.Nome AS Nome_Aeroporto_Destino,
+    v.Id AS Id_Viagem,
+    ca.Nome AS Companhia_Aerea,
+    p1.Nome_Pais AS Pais_Origem,
+    p2.Nome_Pais AS Pais_Destino,
+    c.Tipo_Classe,
+    v.Data_Partida,
+    v.Data_Chegada,
+    v.Preco,
+    COUNT(l.Id) AS Lugares_Disponiveis
+    FROM 
+    Lugar l
+    INNER JOIN Viagem v ON l.Id_Viagem = v.Id
+    INNER JOIN Aeroporto a1 ON v.Id_Aeroporto_Origem = a1.Id
+    INNER JOIN Aeroporto a2 ON v.Id_Aeroporto_Destino = a2.Id
+    INNER JOIN Companhia_Aerea ca ON v.Id_Companhia_Aerea = ca.Id
+    INNER JOIN Pais p1 ON a1.Id_Pais = p1.Id
+    INNER JOIN Pais p2 ON a2.Id_Pais = p2.Id
+    INNER JOIN Classe c ON v.Id_Classe = c.Id
+    WHERE 
+    l.Id_Disponivel = 1
+    AND a1.Morada LIKE ?
+    AND a2.Morada LIKE ?
+    AND DATE(v.Data_Partida) = ?
+    AND c.Id = ?
+    GROUP BY 
+    v.Id,
+    a1.Id,
+    a1.Nome,
+    a2.Id,
+    a2.Nome,
+    ca.Nome,
+    p1.Nome_Pais,
+    p2.Nome_Pais,
+    c.Tipo_Classe,
+    v.Data_Partida,
+    v.Data_Chegada,
+    v.Preco
+    HAVING 
+    COUNT(l.Id) >= ?;
+  `;
+    
+  db.query(query, [aero1, aero2, data_inicio, classe, pessoas], (err, results) => {
+    if (err) {
+      console.error("Erro na query:");
+      console.error("Valores:", [aero1, aero2, data_inicio]);
+      console.error("Erro MySQL:", err.sqlMessage);
+      return res.status(500).json({ erro: "Erro ao buscar voos" });
+    }
+    res.json(results);
+  });
+  
 
 });
 
