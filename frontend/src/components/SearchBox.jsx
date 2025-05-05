@@ -44,42 +44,58 @@ const SearchBox = () => {
   };
 
   const clicar = () => {
-    console.log(mode);
-    console.log(idaVolta);
-    console.log(origin);
-    console.log(destination);
-    console.log(selectedClass);
-    console.log(DateOrigin);
-    console.log(DateDestination);
-    console.log(pessoas);
-
 
     if(mode === "flights") {
       if(idaVolta === "idaevolta") {
         if(!origin || !destination || !selectedClass || !DateOrigin || !DateDestination || !pessoas) {
           notifyError("Preencha todos os campos");
         } else {
-          setTipoBilhete("idaevolta");
-          notifyError("sucesso");
+          if(pessoas > 10 || pessoas < 0) {
+            notifyError("Número máximo de pessoas excedido")
+          } else 
+          if(DateOrigin > DateDestination) {
+            notifyError("Datas inválidas");
+          } else if( origin.toLowerCase() === destination.toLowerCase()){
+            notifyError("Origem e Destino é o mesmo");
+          } else {
+            setTipoBilhete("idaevolta");
+            notifyError("sucesso");
+            navigate("/CriacaoBilhete");
+
+          }
+          
         }
       } else {
         if(!origin || !destination || !selectedClass || !DateOrigin || !pessoas) {
           notifyError("Preencha todos os campos");
         } else {
-          setTipoBilhete("ida");
-          notifyError("sucesso");
-        }
+          if(pessoas > 10 || pessoas < 0) {
+            notifyError("Número máximo de pessoas excedido")
+          } else if( origin.toLowerCase() === destination.toLowerCase()){
+            notifyError("Origem e Destino é o mesmo");
+          } else {
+            setTipoBilhete("ida");
+            notifyError("sucesso")}
+            navigate("/CriacaoBilhete");
+
+          }
       }
-    } else {
+    } else if(mode === "hotels") {
       if(!origin || !DateOrigin || !DateDestination || !pessoas) {
         notifyError("Preencha todos os campos");
       } else {
-        setTipoBilhete("hotels");
+        if(pessoas > 10 || pessoas < 0) {
+          notifyError("Número máximo de pessoas excedido")
+        } else if(DateOrigin > DateDestination) {
+          notifyError("Datas inválidas");
+        } else {
+          setTipoBilhete("hotels");
           notifyError("sucesso");
+          navigate("/CriacaoBilhete");
+
+        }
       }
     }
-
-    navigate("/CriacaoBilhete");
 
   }
 
