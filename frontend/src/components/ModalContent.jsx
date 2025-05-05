@@ -1,13 +1,13 @@
 import React, { use, useEffect, useState } from "react";
 import { useModal } from "../context/ModalContext";
 import "./ModalContent.css"
-import { Login, veriEmail, Register, send2FACode, verify2FACode } from "./Login";
+import { Login, veriEmail, Register, send2FACode, verify2FACode, Pass2 } from "./Login";
 import { useUser } from "../context/UserContext";
 import { fetchCountries } from "./Paises";
 import { useNotification } from "../context/NotificationContext";
 
 const ModalContent = () => {
-  const { activeModal, closeModels, openLogin, openRegister, autenticacao } = useModal();
+  const { activeModal, closeModels, openLogin, openRegister, autenticacao, esquecimePass } = useModal();
   const { notifySuccess } = useNotification();
   const [error, setError ] = useState("")
   const [ email, setEmail ] = useState("");
@@ -106,9 +106,27 @@ const ModalContent = () => {
       setError(result.mensagem);
     }
   }
-  
 
-  
+  const NovaPass = async (e) =>  {
+    e.preventDefault();
+    try {
+      console.log(email);
+      const result = await veriEmail(email);
+      console.log(result);
+      if(result.length < 0) {
+        setError("Email não existe");
+      } else {
+          const result2 = await Pass2(email);
+          notifySuccess("A nova Palavra-Passe foi enviada para o seu e-mail com sucesso");
+          closeModels();
+          openLogin();
+      }
+    } catch {
+      setError("Erro 401");
+    }
+
+  }
+ 
 
   if (activeModal === "login") {
     return (
@@ -135,7 +153,9 @@ const ModalContent = () => {
         </form>
         </div>
         <div className="End_Modal">
-          <h5>És novo? <span style={{color: "blue", cursor:"pointer"}} onClick={() => {closeModels(); openRegister();}}>Regista-te</span></h5>
+          <h5>És novo? <span style={{color: "blue", cursor:"pointer"}} onClick={() => {closeModels(); openRegister();}}>Regista-te</span><br />
+          <br />
+          <span style={{color: "blue", cursor:"pointer"}} onClick={() => {closeModels();esquecimePass();}}>Esqueceu-se da Palavra-Passe?</span></h5>
         </div>
       </div>
     );
@@ -219,6 +239,34 @@ const ModalContent = () => {
           </div>
           <div className="FormRow" >
           <button type="submit" onClick={verificar2fa} >Verificar</button>
+          </div>
+        </form>
+        </div>
+      </div>
+    );
+  }
+
+  if (activeModal === "Esquecime_Pass") {
+    return (
+      <div>
+        <div className="Top_Modal">
+          <div className="Title_Modal">
+            <h2>Esqueci-me da Palavra-Passe</h2>
+          </div>
+        </div>
+        <div className="Middle_Modal">
+        <form>
+          <div className="FormRow" >
+            Insira o E-mail da sua conta
+          </div>
+          <div className="Error_part" >
+          {error}
+        </div>
+          <div className="FormRow" >
+          <input type="text" placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} />
+          </div>
+          <div className="FormRow" >
+          <button type="submit" onClick={NovaPass} >Verificar</button>
           </div>
         </form>
         </div>

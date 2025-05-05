@@ -190,6 +190,40 @@ app.post('/api/updateUserData', (req, res) => {
   });
 });
 
+app.post('/api/NovaPass', async (req, res) => {
+
+  const {email} = req.body;
+  const codigo = Math.floor(100000 + Math.random() * 900000).toString();
+  const salt =  await bcryptjs.genSalt(10);
+  const hashedpass = await bcryptjs.hash(codigo, salt);
+  console.log(codigo);
+
+  const query = `UPDATE Utilizador
+  SET Palavra_Passe = ? 
+  WHERE Email = ?`;
+
+  db.query(query, [hashedpass, email], (err, results) => {
+    if (err) return res.status(500).send(err);
+    res.json(results);
+  });
+
+  const mailOptions = {
+    from: 'flyeasyofficial@gmail.com',
+    to: email,
+    subject: 'Nova Password',
+    text: `Olá\nFoi pedido um requerimento de nova Palavra-Passe.\nEsta é a sua nova Palavra-Passe ${codigo}\nPode alterar a Palavra-Passe na aba dos Dados Pessoais\nA equipa da FlyEasy`
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Erro ao enviar email:', error);
+      return res.status(500).json({ mensagem: 'Erro ao enviar o email' });
+    }
+    res.status(200).json({ mensagem: 'Código enviado com sucesso' });
+  });
+
+});
+
 
 app.get('/api/classes', (req, res) => {
     db.query('SELECT * FROM Classe;', (err, results) => {

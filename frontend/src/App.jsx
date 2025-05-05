@@ -13,13 +13,7 @@ const App = () => {
   const { activeModal } = useModal();
   const { user, login , logout} = useUser();
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      login(JSON.parse(storedUser));
-    }
-  }, []);
-
+  
   return (
     <div>
       <Navbar />
