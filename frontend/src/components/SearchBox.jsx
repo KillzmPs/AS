@@ -17,7 +17,7 @@ const SearchBox = () => {
   const [DateDestination, setDateDestination ] = useState('');
   const [pessoas, setPessoas] = useState('');
   const { notifyError } = useNotification();
-  const {setTipoBilhete, guardarHoteis } = useBilhete();
+  const {setTipoBilhete, guardarHoteis, guardarVoo1, guardarVoo2, Voo1, Voo2 } = useBilhete();
   const navigate = useNavigate();
 
 
@@ -61,13 +61,23 @@ const SearchBox = () => {
           } else {
             try {
               const result = await RecomendacaoVoo('%'+ origin.charAt(0).toUpperCase() + origin.slice(1), '%'+ destination.charAt(0).toUpperCase() + destination.slice(1), DateOrigin, selectedClass, pessoas);
-              console.log(DateOrigin);
-              console.log(result);
               if(result.length > 0) {
-                guardarHoteis(result);
-                setTipoBilhete("idaevolta");
-                notifyError("sucesso")
-                navigate("/CriacaoBilhete");
+                guardarVoo1(result);
+                try {
+                  const result2 = await RecomendacaoVoo('%'+ destination.charAt(0).toUpperCase() + destination.slice(1),'%'+ origin.charAt(0).toUpperCase() + origin.slice(1), DateDestination, selectedClass, pessoas);
+                  if(result2.length > 0) {
+                    guardarVoo2(result2);
+                    setTipoBilhete("idaevolta");
+                    notifyError("sucesso")
+                    navigate("/CriacaoBilhete");
+                    console.log(Voo1);
+                    console.log(Voo2);
+                  } else {
+                    notifyError("Não há Hoteis aí neste momento");
+                  }
+                } catch {
+                  notifyError("Erro 401");
+                }
               } else {
                 notifyError("Não há Hoteis aí neste momento");
               }
@@ -87,10 +97,20 @@ const SearchBox = () => {
           } else if( origin.toLowerCase() === destination.toLowerCase()){
             notifyError("Origem e Destino é o mesmo");
           } else {
-            setTipoBilhete("ida");
-            notifyError("sucesso")}
-            navigate("/CriacaoBilhete");
-
+            try {
+              const result = await RecomendacaoVoo('%'+ origin.charAt(0).toUpperCase() + origin.slice(1),'%'+ destination.charAt(0).toUpperCase() + destination.slice(1), DateOrigin, selectedClass, pessoas);
+              if(result.length > 0) {
+                guardarVoo1(result);
+                setTipoBilhete("ida");
+                notifyError("sucesso")
+                navigate("/CriacaoBilhete");
+              } else {
+                notifyError("Não há Hoteis aí neste momento");
+              }
+            } catch {
+              notifyError("Erro 401");
+            }
+          }
           }
       }
     } else if(mode === "hotels") {
