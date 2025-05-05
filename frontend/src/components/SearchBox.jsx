@@ -66,12 +66,12 @@ const SearchBox = () => {
                 try {
                   const result2 = await RecomendacaoVoo('%'+ destination.charAt(0).toUpperCase() + destination.slice(1),'%'+ origin.charAt(0).toUpperCase() + origin.slice(1), DateDestination, selectedClass, pessoas);
                   if(result2.length > 0) {
-                    guardarVoo2(result2);
-                    setTipoBilhete("idaevolta");
-                    notifyError("sucesso")
-                    navigate("/CriacaoBilhete");
-                    console.log(Voo1);
-                    console.log(Voo2);
+                    if(result.length == result2.length) {
+                      guardarVoo2(result2);
+                      setTipoBilhete("idaevolta");
+                      notifyError("sucesso")
+                      navigate("/CriacaoBilhete");
+                    }
                   } else {
                     notifyError("Não há Hoteis aí neste momento");
                   }
