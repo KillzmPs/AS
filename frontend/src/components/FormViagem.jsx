@@ -72,6 +72,7 @@ const FormViagem = () => {
           </div>
           <div className="bilhete-coluna estreita">
           <div>
+            <div><h2>{par.voo1.Preco + par.voo1.Preco}€/Pessoa</h2></div>
             <button
               onClick={() => {
                 guardarVoo1(par.voo1);
@@ -92,7 +93,7 @@ const FormViagem = () => {
   const renderVooIda = () => {
     const voos = Object.values(Voo1 || {});
     return voos.map((voo, index) => (
-      <div key={index} className="bilhete-card">
+      <div key={index} className="bilhete-card ida">
         <div className="bilhete-content">
           <div className="bilhete-coluna larga">
             <div className="linha-voo">
@@ -115,8 +116,9 @@ const FormViagem = () => {
             </div>
           </div>
 
-          <div className="bilhete-coluna estreita">
+          <div className="bilhete-coluna  idab">
             <div>
+              <div><h2>{voo.Preco}€/Pessoa</h2></div>
             <button
               onClick={() => {
                 if (user) {
