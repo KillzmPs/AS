@@ -1,0 +1,93 @@
+.form-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 900px;
+    padding: 1rem;
+  }
+  
+  .titulo-passo {
+    font-size: 2.5rem;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 5rem;
+    text-align: center;
+  }
+  
+  .bilhete-card {
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    background-color: #fdfdfd;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .bilhete-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+  }
+  
+  .bilhete-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .bilhete-coluna.larga {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .bilhete-coluna.estreita {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    height: 100%;
+    margin-top: 140px;
+    margin-right: 20px;
+  }
+  
+  .botao-container {
+    margin-top: auto;
+  }
+  
+  
+  .linha-voo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    border-radius: 8px;
+  }
+  
+  .imagem-companhia {
+    width: 100px;
+    height: auto;
+    object-fit: contain;
+  }
+  
+
+  .info-voo {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  
+  .selecionar-btn {
+    border-radius: 30px;
+    border: none;
+    background-color: #201c3c;
+    color: white;
+    height: 40px;
+    width: 100%;
+    cursor: pointer;
+    font-weight: bold;
+}
+  
+  .selecionar-btn:hover {
+    background-color: #0056b3;
+  }
+  

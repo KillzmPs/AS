@@ -416,6 +416,7 @@ app.post('/api/mostrarVoos', async (req, res) => {
     a2.Nome AS Nome_Aeroporto_Destino,
     v.Id AS Id_Viagem,
     ca.Nome AS Companhia_Aerea,
+    ca.Abreviacao AS Comp_Abre,
     p1.Nome_Pais AS Pais_Origem,
     p2.Nome_Pais AS Pais_Destino,
     c.Tipo_Classe,

@@ -17,7 +17,7 @@ const SearchBox = () => {
   const [DateDestination, setDateDestination ] = useState('');
   const [pessoas, setPessoas] = useState('');
   const { notifyError } = useNotification();
-  const {setTipoBilhete, guardarHoteis, guardarVoo1, guardarVoo2, Voo1, Voo2 } = useBilhete();
+  const {setTipoBilhete, guardarHoteis, guardarVoo1, guardarVoo2 } = useBilhete();
   const navigate = useNavigate();
 
 
@@ -69,8 +69,21 @@ const SearchBox = () => {
                     if(result.length == result2.length) {
                       guardarVoo2(result2);
                       setTipoBilhete("idaevolta");
-                      notifyError("sucesso")
-                      navigate("/CriacaoBilhete");
+                      console.log(result);
+                      console.log(result2);
+                      try {
+                        const result = await RecomendacaoHoteis('%'+ origin.charAt(0).toUpperCase() + origin.slice(1), pessoas);
+                        console.log(result);
+                        if(result.length > 0) {
+                          guardarHoteis(result);
+                          notifyError("sucesso")
+                          navigate("/CriacaoBilhete");
+                        } else {
+                          notifyError("Não há Hoteis aí neste momento");
+                        }
+                      } catch {
+                          notifyError("Erro 401");
+                      }
                     }
                   } else {
                     notifyError("Não há Hoteis aí neste momento");

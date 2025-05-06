@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, use, useContext, useState } from "react";
 
 const BilheteContext = createContext();
 
@@ -12,6 +12,11 @@ export function BilheteProvider({ children }) {
     const [Hotel, setHotel] = useState(null);
     const [Voo1, setVoo1] = useState(null);
     const [Voo2, setVoo2] = useState(null);
+    const [selecVoo1, setSelecVoo1] = useState(null);
+    const [selecVoo2, setSelecVoo2] = useState(null);
+    const [selecHotel, setSelecHotel] = useState(null);
+    const [selecLugares, setSelecLugares] = useState([]);
+    const [preco, setPreco] = useState(null);
 
     const guardarHoteis = (dados) => setHotel(dados);
     const eliminarHoteis = () => setHotel(null);
