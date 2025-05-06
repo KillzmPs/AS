@@ -17,7 +17,7 @@ const SearchBox = () => {
   const [DateDestination, setDateDestination ] = useState('');
   const [pessoas, setPessoas] = useState('');
   const { notifyError } = useNotification();
-  const {setTipoBilhete, guardarHoteis, guardarVoo1, guardarVoo2 } = useBilhete();
+  const {setTipoBilhete, guardarHoteis, guardarVoo1, guardarVoo2, denovo, eliminarHoteis, eliminarVoo1, eliminarVoo2} = useBilhete();
   const navigate = useNavigate();
 
 
@@ -27,6 +27,11 @@ const SearchBox = () => {
       setClasses(data);
     };
     loadClasses();
+    denovo();
+    eliminarHoteis();
+    eliminarVoo1();
+    eliminarVoo2();
+
   
   }, []);
 

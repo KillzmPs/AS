@@ -15,8 +15,12 @@ export function BilheteProvider({ children }) {
     const [selecVoo1, setSelecVoo1] = useState(null);
     const [selecVoo2, setSelecVoo2] = useState(null);
     const [selecHotel, setSelecHotel] = useState(null);
-    const [selecLugares, setSelecLugares] = useState([]);
+    const [selecLugaresVoo1, setSelecLugaresVoo1] = useState([]);
+    const [selecLugaresVoo2, setSelecLugaresVoo2] = useState([]);
+    const [selecLugaresHotel, setSelecLugaresHotel] = useState([]);
     const [preco, setPreco] = useState(null);
+
+    const denovo = () => {setTipoBilhete(null);setPassoAtual(2);}
 
     const guardarHoteis = (dados) => setHotel(dados);
     const eliminarHoteis = () => setHotel(null);
@@ -36,7 +40,7 @@ export function BilheteProvider({ children }) {
     const totalPasso = PassosBilhetes[tipoBilhete] || 1;
 
     return (
-        <BilheteContext.Provider value={{ tipoBilhete, setTipoBilhete, passoAtual, setPassoAtual, guardarHoteis, eliminarHoteis, Hotel, totalPasso, guardarVoo1, eliminarVoo1, guardarVoo2, eliminarVoo2, Voo1, Voo2 }}>
+        <BilheteContext.Provider value={{ tipoBilhete, setTipoBilhete, denovo, passoAtual, setPassoAtual, guardarHoteis, eliminarHoteis, Hotel, totalPasso, guardarVoo1, eliminarVoo1, guardarVoo2, eliminarVoo2, Voo1, Voo2 }}>
             {children}
         </BilheteContext.Provider>
     );
