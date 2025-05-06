@@ -1,8 +1,11 @@
 import React from "react";
 import { useBilhete } from "../context/BilheteContext";
+import { useUser } from "../context/UserContext";
+import { useModal } from "../context/ModalContext";
 import './FormViagem.css';
 
 const FormViagem = () => {
+
   const {
     tipoBilhete,
     passoAtual,
@@ -12,6 +15,9 @@ const FormViagem = () => {
     guardarVoo1,
     guardarVoo2,
   } = useBilhete();
+
+  const { user } = useUser();
+  const { openLogin } = useModal();
 
   const renderVooIdaVolta = () => {
     const totalPares = Math.min(Object.keys(Voo1 || {}).length, Object.keys(Voo2 || {}).length);
@@ -113,9 +119,15 @@ const FormViagem = () => {
             <div>
             <button
               onClick={() => {
-                guardarVoo1(voo);
-                setPassoAtual(passoAtual + 1);
+                if (user) {
+                  guardarVoo1(voo);
+                  setPassoAtual(passoAtual + 1);
+                } else {
+                  openLogin();
+                }
               }}
+              
+              
               className="selecionar-btn"
             >
               Selecionar
