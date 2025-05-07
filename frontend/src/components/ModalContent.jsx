@@ -1,10 +1,11 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useModal } from "../context/ModalContext";
 import "./ModalContent.css"
 import { Login, veriEmail, Register, send2FACode, verify2FACode, Pass2 } from "./Login";
 import { useUser } from "../context/UserContext";
 import { fetchCountries } from "./Paises";
 import { useNotification } from "../context/NotificationContext";
+import { useBilhete } from "../context/BilheteContext";
 
 const ModalContent = () => {
   const { activeModal, closeModels, openLogin, openRegister, autenticacao, esquecimePass } = useModal();
@@ -21,6 +22,9 @@ const ModalContent = () => {
   const [againPas, setAgainPas] = useState('');
   const [codigo, setCodigo] = useState('');
   const [login2fa, setLogin2fa] = useState({})
+  const { pessoas, LugaresVoo1, LugaresVoo2, guardarLugarVoo1,
+     guardarLugarVoo2, setPassoAtual, passoAtual, setPrecoVoo,
+      precoVoo, Quartos, guardarQuartoHotel, datainicio, datafim, setPrecoHotel} = useBilhete();
 
   useEffect(() => {
       const loadPais = async () => {
@@ -126,7 +130,78 @@ const ModalContent = () => {
     }
 
   }
- 
+
+  const [lugaresIda, setLugaresIda] = useState(Array(pessoas).fill(""));
+  const [lugaresVolta, setLugaresVolta] = useState(Array(pessoas).fill(""));
+
+  const lugaresDisponiveisIda = Array.isArray(LugaresVoo1)
+  ? LugaresVoo1.map(l => l.Lugar?.toString?.() || "")
+  : [];
+
+const lugaresDisponiveisVolta = Array.isArray(LugaresVoo2)
+  ? LugaresVoo2.map(l => l.Lugar?.toString?.() || "")
+  : [];
+
+
+  const handleChangeIda = (index, value) => {
+    const novos = [...lugaresIda];
+    novos[index] = value;
+    setLugaresIda(novos);
+  };
+
+  const handleChangeVolta = (index, value) => {
+    const novos = [...lugaresVolta];
+    novos[index] = value;
+    setLugaresVolta(novos);
+  };
+
+
+  const confirmarLugares = () => {
+    setPrecoVoo(precoVoo * pessoas);
+    guardarLugarVoo1(lugaresIda);
+    guardarLugarVoo2(lugaresVolta);
+    closeModels();
+    setPassoAtual(passoAtual + 1);
+    console.log(lugaresIda);
+    console.log(lugaresVolta);
+    console.log(precoVoo);
+    
+  };
+
+  const [quartosSelecionados, setQuartosSelecionados] = useState(Array(pessoas).fill(""));
+
+  const handleChangeQuarto = (index, value) => {
+    const novos = [...quartosSelecionados];
+    novos[index] = value;
+    setQuartosSelecionados(novos);
+  };
+
+  const quartosDisponiveis = Array.isArray(Quartos)
+    ? Quartos.map((q) => ({
+        id: q.Id?.toString?.() || "",
+        texto: `Quarto ${q.Numero_Quarto} - ${q.Preco}€`,
+        preco: q.Preco,
+      }))
+    : [];
+
+  const calcularPrecoTotal = () => {
+    const total = quartosSelecionados.reduce((acc, id) => {
+      const quarto = quartosDisponiveis.find((q) => q.id === id);
+      return acc + (quarto ? quarto.preco : 0);
+    }, 0);
+    return total;
+  };
+
+  const handleConfirmar = () => {
+    guardarQuartoHotel(quartosSelecionados);
+    const total = calcularPrecoTotal();
+    const preco = Math.floor((datafim - datainicio) / (1000 * 60 * 60 * 24)) * total;
+    setPrecoHotel(preco);
+    setPassoAtual(passoAtual + 1);
+    closeModels();
+  };
+
+
 
   if (activeModal === "login") {
     return (
@@ -269,6 +344,119 @@ const ModalContent = () => {
           <button type="submit" onClick={NovaPass} >Verificar</button>
           </div>
         </form>
+        </div>
+      </div>
+    );
+  }
+
+  if(activeModal === "ida-volta") {
+    return (
+      <div>
+        <div className="Top_Modal">
+          <div className="Title_Modal">
+            <h2>Escolher Lugares</h2>
+          </div>
+        </div>
+  
+        <div className="Middle_Modal">
+          <form>
+
+            {LugaresVoo1 && (<>
+              <h3>Ida</h3>
+              {Array.from({ length: pessoas }, (_, i) => (
+              <div className="FormRow" key={i}>
+                <select
+                  value={lugaresIda[i] || ""}
+                  onChange={(e) => handleChangeIda(i, e.target.value)}
+                  className="pais_modal"
+                >
+                  <option value="">Seleciona um lugar</option>
+                  {lugaresDisponiveisIda
+                    .filter(l => !lugaresIda.includes(l) || l === lugaresIda[i])
+                    .map((lugar) => (
+                      <option key={lugar} value={lugar}>
+                        {lugar}
+                      </option>
+                    ))}
+                </select>
+              </div>
+            ))}</>)}
+
+            {LugaresVoo2 && (<>
+              <h3>Volta</h3>
+            {Array.from({ length: pessoas }, (_, i) => (
+            <div className="FormRow" key={i}>
+              <select
+                value={lugaresVolta[i] || ""}
+                onChange={(e) => handleChangeVolta(i, e.target.value)}
+                className="pais_modal"
+              >
+                <option value="">Seleciona um lugar</option>
+                {lugaresDisponiveisVolta
+                  .filter(l => !lugaresVolta.includes(l) || l === lugaresVolta[i])
+                  .map((lugar) => (
+                    <option key={lugar} value={lugar}>
+                      {lugar}
+                    </option>
+                  ))}
+              </select>
+            </div>
+          ))}
+            </>)}
+  
+            <div className="FormRow">
+              <button type="button" onClick={confirmarLugares}>
+                Confirmar Lugares
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
+  if(activeModal === "hotel") {
+    return (
+      <div>
+        <div className="Top_Modal">
+          <div className="Title_Modal">
+            <h2>Selecionar Quartos</h2>
+          </div>
+        </div>
+        <div className="Middle_Modal">
+          <form>
+            {Array.from({ length: pessoas }, (_, i) => (
+              <div className="FormRow" key={i}>
+                  <select
+                    value={quartosSelecionados[i]}
+                    onChange={(e) => handleChangeQuarto(i, e.target.value)}
+                    className="pais_modal"
+                  >
+                    <option value="">Seleciona um quarto</option>
+                    {quartosDisponiveis
+                      .filter(
+                        (q) =>
+                          !quartosSelecionados.includes(q.id) ||
+                          q.id === quartosSelecionados[i]
+                      )
+                      .map((q) => (
+                        <option key={q.id} value={q.id}>
+                          {q.texto}
+                        </option>
+                      ))}
+                  </select>
+              </div>
+            ))}
+  
+            <div className="FormRow">
+              <button
+                type="button"
+                onClick={handleConfirmar}
+              >
+                Confirmar
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     );

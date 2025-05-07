@@ -388,7 +388,9 @@ app.post('/api/mostrarHoteis', async (req, res) => {
     Hotel.Morada, 
     Hotel.Lotacao, 
     Hotel.Avaliacao, 
-    Pais.Nome_Pais 
+    Pais.Nome_Pais,
+    MIN(Quarto.Preco) AS Min_preco,
+    MAX(Quarto.Preco) AS Max_preco
     FROM Quarto 
     INNER JOIN Hotel ON Quarto.Id_Hotel = Hotel.Id 
     INNER JOIN Pais ON Hotel.Id_Pais = Pais.Id 
@@ -465,8 +467,42 @@ app.post('/api/mostrarVoos', async (req, res) => {
     }
     res.json(results);
   });
-  
 
+
+  app.post('/api/mostrarLugares', async (req, res) => {
+
+    const { id_viagem } = req.body; 
+  
+    const query = `
+      SELECT * FROM Lugar WHERE Id_Viagem = ? AND Id_Disponivel = 1;`;
+  
+    db.query(query, [id_viagem], (err, results) => {
+      if (err) return res.status(500).send(err);
+      res.json(results);
+    });
+  
+  });
+  
+  app.post('/api/mostrarquarto', async (req, res) => {
+
+    const { id_viagem } = req.body; 
+  
+    const query = `
+      SELECT * FROM Quarto WHERE Id_Hotel = ? AND Id_Disponivel = 1;`;
+  
+    db.query(query, [id_viagem], (err, results) => {
+      console.log("Valores:", [id_viagem]);
+      if (err) {
+        console.error("Erro na query:");
+        console.error("Valores:", [id_viagem]);
+        console.error("Erro MySQL:", err.sqlMessage);
+        return res.status(500).json({ erro: "Erro ao buscar voos" });
+      }
+      res.json(results);
+    });
+  
+  });
+  
 });
 
 

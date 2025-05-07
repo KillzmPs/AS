@@ -2,6 +2,7 @@ import React from "react";
 import { useBilhete } from "../context/BilheteContext";
 import { useUser } from "../context/UserContext";
 import { useModal } from "../context/ModalContext";
+import { Lugares } from "./SistemaBilhetes";
 import './FormViagem.css';
 
 const FormViagem = () => {
@@ -9,15 +10,41 @@ const FormViagem = () => {
   const {
     tipoBilhete,
     passoAtual,
-    setPassoAtual,
     Voo1,
     Voo2,
-    guardarVoo1,
-    guardarVoo2,
+    guardarVooSelecionado1,
+    guardarVooSelecionado2,
+    setLugaresVoo1,
+    setLugaresVoo2,
+    setPrecoVoo 
   } = useBilhete();
 
   const { user } = useUser();
-  const { openLogin } = useModal();
+  const { openLogin, idaevolta } = useModal();
+
+  const clicarIdaVolta = async (voo1, voo2) => {
+    setPrecoVoo(voo1.Preco + voo2.Preco);
+    guardarVooSelecionado1(voo1);
+    guardarVooSelecionado2(voo2);
+    const result = await Lugares(voo1.Id_Viagem);
+    setLugaresVoo1(result);
+    const result2 = await Lugares(voo2.Id_Viagem);
+    setLugaresVoo2(result2);
+    idaevolta();
+  }
+
+  const clicarIda = async (voo1) => {
+    if(user) {
+      setPrecoVoo(voo1.Preco);
+      guardarVooSelecionado1(voo1);
+      const result = await Lugares(voo1.Id_Viagem);
+      setLugaresVoo1(result);
+      idaevolta();
+    } else {
+      openLogin();
+    }
+
+  }
 
   const renderVooIdaVolta = () => {
     const totalPares = Math.min(Object.keys(Voo1 || {}).length, Object.keys(Voo2 || {}).length);
@@ -74,13 +101,8 @@ const FormViagem = () => {
           <div>
             <div><h2>{par.voo1.Preco + par.voo1.Preco}€/Pessoa</h2></div>
             <button
-              onClick={() => {
-                guardarVoo1(par.voo1);
-                guardarVoo2(par.voo2);
-                setPassoAtual(passoAtual + 1);
-              }}
-              className="selecionar-btn"
-            >
+              onClick={() => clicarIdaVolta(par.voo1, par.voo2)}
+              className="selecionar-btn">
               Selecionar
             </button>
             </div>
@@ -120,16 +142,7 @@ const FormViagem = () => {
             <div>
               <div><h2>{voo.Preco}€/Pessoa</h2></div>
             <button
-              onClick={() => {
-                if (user) {
-                  guardarVoo1(voo);
-                  setPassoAtual(passoAtual + 1);
-                } else {
-                  openLogin();
-                }
-              }}
-              
-              
+              onClick={() => clicarIda(voo)}
               className="selecionar-btn"
             >
               Selecionar

@@ -9,6 +9,8 @@ export const ModalProvider = ({ children }) => {
   const openRegister = () => setActiveModal("register");
   const autenticacao = () => setActiveModal("2fa");
   const esquecimePass = () => setActiveModal("Esquecime_Pass");
+  const idaevolta = () => setActiveModal("ida-volta");
+  const hotels = () => setActiveModal("hotel");
   const openAccountSettings = () => setActiveModal("account-settings");
   const refMultibanco = () => setActiveModal("multibanco");
   const refMbWay = () => setActiveModal("mbway");
@@ -23,6 +25,8 @@ export const ModalProvider = ({ children }) => {
         autenticacao,
         esquecimePass,
         openAccountSettings,
+        idaevolta,
+        hotels,
         refMultibanco,
         refMbWay,
         closeModels

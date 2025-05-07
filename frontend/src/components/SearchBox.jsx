@@ -4,7 +4,7 @@ import { fetchClasses } from './Classes.js';
 import { useNotification } from '../context/NotificationContext';
 import { useBilhete } from '../context/BilheteContext.jsx';
 import { useNavigate } from 'react-router-dom';
-import { RecomendacaoHoteis, RecomendacaoVoo } from './SistemaBilhetes.js';
+import { RecomendacaoHoteis, RecomendacaoVoo} from './SistemaBilhetes.js';
 
 const SearchBox = () => {
   const [mode, setMode] = useState('flights');
@@ -15,9 +15,8 @@ const SearchBox = () => {
   const [selectedClass, setSelectedClass] = useState('');
   const [DateOrigin, setDateOrigin ] = useState('');
   const [DateDestination, setDateDestination ] = useState('');
-  const [pessoas, setPessoas] = useState('');
   const { notifyError } = useNotification();
-  const {setTipoBilhete, guardarHoteis, guardarVoo1, guardarVoo2, denovo, eliminarHoteis, eliminarVoo1, eliminarVoo2} = useBilhete();
+  const {setTipoBilhete, guardarHoteis, guardarVoo1, guardarVoo2, denovo, eliminarHoteis, eliminarVoo1, eliminarVoo2, pessoas, setPessoas, setDatainicio, setDatafim } = useBilhete();
   const navigate = useNavigate();
 
 
@@ -50,7 +49,6 @@ const SearchBox = () => {
   };
 
   const clicar = async () => {
-
     if(mode === "flights") {
       if(idaVolta === "idaevolta") {
         if(!origin || !destination || !selectedClass || !DateOrigin || !DateDestination || !pessoas) {
@@ -59,7 +57,7 @@ const SearchBox = () => {
           if(pessoas > 10 || pessoas < 0) {
             notifyError("Número máximo de pessoas excedido")
           } else 
-          if(DateOrigin > DateDestination) {
+          if(DateOrigin > DateDestination || (new Date(DateOrigin) < new Date())) {
             notifyError("Datas inválidas");
           } else if( origin.toLowerCase() === destination.toLowerCase()){
             notifyError("Origem e Destino é o mesmo");
@@ -77,11 +75,12 @@ const SearchBox = () => {
                       console.log(result);
                       console.log(result2);
                       try {
-                        const result = await RecomendacaoHoteis('%'+ origin.charAt(0).toUpperCase() + origin.slice(1), pessoas);
+                        const result = await RecomendacaoHoteis('%'+ destination.charAt(0).toUpperCase() + destination.slice(1), pessoas);
                         console.log(result);
                         if(result.length > 0) {
                           guardarHoteis(result);
                           notifyError("sucesso")
+                          console.log(result);
                           navigate("/CriacaoBilhete");
                         } else {
                           notifyError("Não há Hoteis aí neste momento");
@@ -137,9 +136,11 @@ const SearchBox = () => {
       } else {
         if(pessoas > 10 || pessoas < 0) {
           notifyError("Número máximo de pessoas excedido")
-        } else if(DateOrigin > DateDestination) {
+        } else if(DateOrigin > DateDestination || (new Date(DateOrigin) < new Date())) {
           notifyError("Datas inválidas");
         } else {
+          setDatainicio(new Date(DateOrigin));
+          setDatafim(new Date(DateDestination));
           try {
             const result = await RecomendacaoHoteis('%'+ origin.charAt(0).toUpperCase() + origin.slice(1), pessoas);
             console.log(result);
