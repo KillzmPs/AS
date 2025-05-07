@@ -1,0 +1,198 @@
+.backConf {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ConfCard {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    max-width: 1200px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    margin-bottom: 40px;
+}
+
+.DadosPessoais,
+.ViagensHotel,
+.DadosPreco {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.DadosPessoais {
+    width: 25%;
+    background-color: #1e3a8a;
+    color: white;
+}
+
+.ViagensHotel {
+    width: 50%;
+    background-color: #f9fafb;
+    gap: 15px;
+}
+
+.DadosPreco {
+    width: 25%;
+    background-color: #f3f4f6;
+    justify-content: space-between;
+    border-left: 2px solid #e5e7eb;
+}
+
+.ConfCardHead {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.UserInfo {
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.Viagens2, .Hoteis {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.viagem {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    flex: 1 1 100%;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+}
+
+.Hoteis {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex: 1 1 100%;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.imagemViagem, .imagemHotel {
+    width: 100%;
+    max-width: 120px;
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+}
+
+.hotelInfo {
+    text-align: center;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.PrecoInfo {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    margin: 10px 0;
+}
+
+.PrecoInfo.total {
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #ccc;
+} 
+
+.pedido {
+    color: #111827;
+}
+
+.MetodosPagamento {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+    width: 100%;
+}
+
+.Metodos {
+    border: 2px solid black;
+    border-radius: 12px;
+    padding: 1rem;
+    width: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.MetodosPagamento .Metodos > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.MetodosPagamento .Metodos img {
+    max-width: 150px;
+    margin-bottom: 0.5rem;
+}
+
+.Metodos img {
+    height: 80px;
+    margin-bottom: 0.5rem;
+}
+
+.Metodos div:last-child {
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.Metodos:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.botoesConfirma {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 2rem auto;
+}
+
+.veriB {
+    border-radius: 30px;
+    border: none;
+    background-color: pink;
+    color: white;
+    height: 40px;
+    width: 180px;
+    cursor: pointer;
+    font-weight: bold;
+}

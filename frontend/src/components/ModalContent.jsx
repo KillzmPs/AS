@@ -464,6 +464,21 @@ const lugaresDisponiveisVolta = Array.isArray(LugaresVoo2)
     );
   }
 
+  {activeModal === "mbway"} {
+    return (
+      <div>
+        <div className="Top_Modal">
+          <div className="Title_Modal">
+            <h2>MBWay</h2>
+          </div>
+        </div>
+        <div className="Middle_Modal">
+        O montante foi enviado para o seu telemovel. Tem ate 1 mes antes do voo de partida. Caso nao o faça não tera o bilhete comprado. Pode ver na abra de bilhetes para ver como esta o estado da compra.{"\n"}Obrigado
+        </div>
+      </div>
+    );
+  }
+
   return null;
 };
 

@@ -491,13 +491,173 @@ app.post('/api/mostrarVoos', async (req, res) => {
       SELECT * FROM Quarto WHERE Id_Hotel = ? AND Id_Disponivel = 1;`;
   
     db.query(query, [id_viagem], (err, results) => {
-      console.log("Valores:", [id_viagem]);
       if (err) {
         console.error("Erro na query:");
         console.error("Valores:", [id_viagem]);
         console.error("Erro MySQL:", err.sqlMessage);
         return res.status(500).json({ erro: "Erro ao buscar voos" });
       }
+      res.json(results);
+    });
+  
+  });
+
+  app.post('/api/criarBilhete', async (req, res) => {
+
+    const { id } = req.body; 
+  
+    const query = `
+      INSERT INTO Bilhete(Id_Utilizador) VALUES (?)`;
+  
+    db.query(query, [id], (err, results) => {
+      if (err) return res.status(500).send(err);
+      res.json(results);
+    });
+  
+  });
+
+  app.post('/api/maxbilhete', async (req, res) => {
+
+    const { id_user } = req.body; 
+  
+    const query = `
+      SELECT max(Id) AS ma FROM Bilhete WHERE Id_Utilizador = ?;`;
+  
+      db.query(query, [id_user], (err, results) => {
+        if (err) {
+          console.error("Erro na query:");
+          console.error("Valores:", [id_user]);
+          console.error("Erro MySQL:", err.sqlMessage);
+          return res.status(500).json({ erro: "Erro ao buscar voos" });
+        }
+        res.json(results);
+      });
+  
+  });
+
+  app.post('/api/inserirlugar', async (req, res) => {
+
+    const { id_bilhete, id_lugar } = req.body; 
+  
+    const query = `
+      INSERT INTO Bilhete_Lugar(Id_Bilhete, Id_Lugar) VALUES (?,?);`;
+  
+      db.query(query, [id_bilhete, id_lugar], (err, results) => {
+        if (err) {
+          console.error("Erro na query:");
+          console.error("Erro MySQL:", err.sqlMessage);
+          return res.status(500).json({ erro: "Erro ao buscar voos" });
+        }
+        res.json(results);
+      });
+  
+  });
+
+  app.post('/api/inserirquarto', async (req, res) => {
+
+    const { id_bilhete, id_quarto, data_inicio, data_fim } = req.body; 
+  
+    const query = `
+      INSERT INTO Bilhete_Quarto(Id_Bilhete, Id_Quarto, Data_Inicio, Data_Fim) VALUES (?,?, ?, ?);`;
+  
+      db.query(query, [id_bilhete, id_quarto, data_inicio, data_fim], (err, results) => {
+        if (err) {
+          console.error("Erro na query:");
+          console.error("Erro MySQL:", err.sqlMessage);
+          return res.status(500).json({ erro: "Erro ao buscar voos" });
+        }
+        res.json(results);
+      });
+  
+  });
+  app.post('/api/lugarid', async (req, res) => {
+
+    const { numero_quarto, id_viagem } = req.body; 
+  
+    const query = `
+      SELECT Id, Id_Viagem, Lugar, Id_Disponivel FROM Lugar WHERE Lugar = ? AND Id_Viagem = ?;`;
+  
+    db.query(query, [numero_quarto, id_viagem], (err, results) => {
+      if (err) return res.status(500).send(err);
+      res.json(results);
+    });
+  
+  });
+
+  app.post('/api/criarpag', async (req, res) => {
+
+    const { id_bilhete, preco, id_estado, id_tipo, email } = req.body; 
+  
+    const query = `
+      INSERT INTO Pagamento( Id_Bilhete, Preco, Id_Estado_Pagamento, Id_Tipo_Pagamento) VALUES (?, ?, ?, ?);`;
+  
+
+      const mailOptions = {
+        from: 'flyeasyofficial@gmail.com',
+        to: email,
+        subject: 'Compra efetuada com sucesso',
+        text: `Olá\nA sua compra:do bilhete com o Id ${id_bilhete} foi registada com sucesso no valor de ${preco}€\nPode ir á aba dos bilhetes para ver o seu estado.\nA equipa da FlyEasy`
+      };
+    
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.error('Erro ao enviar email:', error);
+          return res.status(500).json({ mensagem: 'Erro ao enviar o email' });
+        }
+        res.status(200).json({ mensagem: 'Código enviado com sucesso' });
+      });
+
+    db.query(query, [id_bilhete, preco, id_estado, id_tipo], (err, results) => {
+      if (err) {
+        console.error("Erro na query:");
+        console.error("Erro MySQL:", err.sqlMessage);
+        return res.status(500).json({ erro: "Erro ao buscar voos" });
+      }
+      res.json(results);
+    });
+
+
+  
+  });
+
+  app.post('/api/quartoid', async (req, res) => {
+
+    const { numero_quarto, id_hotel } = req.body; 
+  
+    const query = `
+      SELECT Id, Id_Hotel, Numero_Quarto, Id_Tipo_Quarto, Preco, Id_Disponivel FROM Quarto WHERE Numero_Quarto = ? AND Id_Hotel = ?;`;
+  
+    db.query(query, [numero_quarto, id_hotel], (err, results) => {
+      if (err) return res.status(500).send(err);
+      res.json(results);
+    });
+  
+  });
+
+  app.post('/api/disponivelugar', async (req, res) => {
+
+    const { id_lugar } = req.body; 
+  
+    const query = `
+      UPDATE Lugar SET Id_Disponivel=2 WHERE Id = ?;`;
+  
+    db.query(query, [id_lugar], (err, results) => {
+      if (err) return res.status(500).send(err);
+      res.json(results);
+    });
+  
+  });
+
+  app.post('/api/disponivelquarto', async (req, res) => {
+
+    const { id_quarto } = req.body; 
+  
+    const query = `
+      UPDATE Quarto SET Id_Disponivel=2 WHERE Id = ?;`;
+  
+    db.query(query, [id_quarto], (err, results) => {
+      console.error("Valores:", [id_quarto]);
+      if (err) return res.status(500).send(err);
       res.json(results);
     });
   
