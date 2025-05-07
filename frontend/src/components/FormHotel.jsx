@@ -47,14 +47,13 @@ const FormHotel = () => {
                   <p>Lotação: {hotel.Lotacao} pessoas</p>
                   <p>Quartos disponíveis: {hotel.Quartos_Disponiveis}</p>
                   <p>Avaliação: {"★".repeat(hotel.Avaliacao)}</p>
-                  <p>Id: {hotel.Id_Hotel}</p>
                 </div>
               </div>
             </div>
 
             <div className="bilhete-coluna  estreita">
             <div>
-              <div><h3>{hotel.Min_preco} - {hotel.Max_preco}€/Pessoa</h3></div>
+              <div><h3>{hotel.Min_preco} - {hotel.Max_preco}€/Pessoa dia</h3></div>
               <button
                   onClick={() => {clicarHotel(hotel)}}
                   className="selecionar-btn"

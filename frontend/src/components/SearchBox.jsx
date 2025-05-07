@@ -70,6 +70,8 @@ const SearchBox = () => {
                   const result2 = await RecomendacaoVoo('%'+ destination.charAt(0).toUpperCase() + destination.slice(1),'%'+ origin.charAt(0).toUpperCase() + origin.slice(1), DateDestination, selectedClass, pessoas);
                   if(result2.length > 0) {
                     if(result.length == result2.length) {
+                      setDatainicio(new Date(DateOrigin));
+                      setDatafim(new Date(DateDestination));
                       guardarVoo2(result2);
                       setTipoBilhete("idaevolta");
                       console.log(result);

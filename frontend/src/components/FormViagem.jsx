@@ -99,7 +99,7 @@ const FormViagem = () => {
           </div>
           <div className="bilhete-coluna estreita">
           <div>
-            <div><h2>{par.voo1.Preco + par.voo1.Preco}€/Pessoa</h2></div>
+            <div><h2>{par.voo1.Preco + par.voo2.Preco}€/Pessoa</h2></div>
             <button
               onClick={() => clicarIdaVolta(par.voo1, par.voo2)}
               className="selecionar-btn">

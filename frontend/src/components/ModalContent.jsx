@@ -24,7 +24,7 @@ const ModalContent = () => {
   const [login2fa, setLogin2fa] = useState({})
   const { pessoas, LugaresVoo1, LugaresVoo2, guardarLugarVoo1,
      guardarLugarVoo2, setPassoAtual, passoAtual, setPrecoVoo,
-      precoVoo, Quartos, guardarQuartoHotel, datainicio, datafim, setPrecoHotel} = useBilhete();
+      precoVoo, Quartos, guardarQuartoHotel, datainicio, datafim, setPrecoHotel, setPreco, preco} = useBilhete();
 
   useEffect(() => {
       const loadPais = async () => {
@@ -160,11 +160,9 @@ const lugaresDisponiveisVolta = Array.isArray(LugaresVoo2)
     setPrecoVoo(precoVoo * pessoas);
     guardarLugarVoo1(lugaresIda);
     guardarLugarVoo2(lugaresVolta);
+    setPreco(precoVoo);
     closeModels();
     setPassoAtual(passoAtual + 1);
-    console.log(lugaresIda);
-    console.log(lugaresVolta);
-    console.log(precoVoo);
     
   };
 
@@ -177,26 +175,30 @@ const lugaresDisponiveisVolta = Array.isArray(LugaresVoo2)
   };
 
   const quartosDisponiveis = Array.isArray(Quartos)
-    ? Quartos.map((q) => ({
-        id: q.Id?.toString?.() || "",
-        texto: `Quarto ${q.Numero_Quarto} - ${q.Preco}€`,
-        preco: q.Preco,
-      }))
-    : [];
+  ? Quartos.map((q) => ({
+      id: q.Id?.toString?.() || "",
+      texto: `Quarto ${q.Numero_Quarto} - ${q.Preco}€`,
+      quarto: q.Numero_Quarto?.toString?.(),
+      preco: q.Preco,
+    }))
+  : [];
 
   const calcularPrecoTotal = () => {
-    const total = quartosSelecionados.reduce((acc, id) => {
-      const quarto = quartosDisponiveis.find((q) => q.id === id);
+    const total = quartosSelecionados.reduce((acc, numeroQuarto) => {
+      const quarto = quartosDisponiveis.find((q) => q.quarto === numeroQuarto);
       return acc + (quarto ? quarto.preco : 0);
     }, 0);
     return total;
   };
+  
 
   const handleConfirmar = () => {
     guardarQuartoHotel(quartosSelecionados);
     const total = calcularPrecoTotal();
-    const preco = Math.floor((datafim - datainicio) / (1000 * 60 * 60 * 24)) * total;
-    setPrecoHotel(preco);
+    const preco2 = Math.floor((datafim - datainicio) / (1000 * 60 * 60 * 24)) * total;
+    const preco3 = preco + preco2;
+    setPrecoHotel(preco2);
+    setPreco(preco3);
     setPassoAtual(passoAtual + 1);
     closeModels();
   };
@@ -440,7 +442,7 @@ const lugaresDisponiveisVolta = Array.isArray(LugaresVoo2)
                           q.id === quartosSelecionados[i]
                       )
                       .map((q) => (
-                        <option key={q.id} value={q.id}>
+                        <option key={q.id} value={q.quarto}>
                           {q.texto}
                         </option>
                       ))}

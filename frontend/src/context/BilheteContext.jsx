@@ -21,14 +21,14 @@ export function BilheteProvider({ children }) {
     const [LugaresVoo1, setLugaresVoo1] = useState(null);
     const [LugaresVoo2, setLugaresVoo2] = useState(null);
     const [Quartos, setQuartos] = useState();
-    const [preco, setPreco] = useState(null);
-    const [precoVoo, setPrecoVoo] = useState();
-    const [precoHotel, setPrecoHotel] = useState();
-    const [pessoas, setPessoas] = useState();
+    const [preco, setPreco] = useState(0);
+    const [precoVoo, setPrecoVoo] = useState(0);
+    const [precoHotel, setPrecoHotel] = useState(0);
+    const [pessoas, setPessoas] = useState(0);
     const [datainicio, setDatainicio] = useState();
     const [datafim, setDatafim] = useState();
 
-    const denovo = () => {setTipoBilhete(null);setPassoAtual(2);}
+    const denovo = () => {setTipoBilhete(null);setPassoAtual(2);setPreco(0);setPrecoHotel(0);setPrecoVoo(0);setHotel(null);setVoo1(null);setVoo2(null);}
 
     const guardarHoteis = (dados) => setHotel(dados);
     const eliminarHoteis = () => setHotel(null);
@@ -59,7 +59,9 @@ export function BilheteProvider({ children }) {
         Voo1, Voo2, guardarHotelSelecionado, 
         guardarVooSelecionado1, guardarVooSelecionado2, guardarLugarVoo1, guardarLugarVoo2, guardarQuartoHotel, pessoas, setPessoas, setLugaresVoo1, setLugaresVoo2,
         setSelecLugaresVoo1, setSelecLugaresVoo2, LugaresVoo1, LugaresVoo2, setPrecoVoo, precoVoo,
-        setQuartos, Quartos, setDatainicio, setDatafim, datainicio, datafim, setPrecoHotel, precoHotel }}>
+        setQuartos, Quartos, setDatainicio, setDatafim, datainicio, datafim, setPrecoHotel, precoHotel, preco ,setPreco,
+        selecLugaresVoo1, selecLugaresVoo2, selecLugaresHotel,
+        selecVoo1, selecVoo2, selecHotel }}>
             {children}
         </BilheteContext.Provider>
     );

@@ -5,9 +5,9 @@ const ProgressBar = () => {
   const { passoAtual, totalPasso, tipoBilhete } = useBilhete();
 
   const passosPorTipo = {
-    hotels: ["Escolha de dado do Hotel", "Escolha do Hotel", "Confirmação e Pagamento"],
-    idaevolta: ["Escolha de dado do Voo", "Escolha dos Voos", "Escolha do Hotel", "Confirmação e Pagamento"],
-    ida: ["Escolha de dado do Voo", "Escolha do Voo", "Confirmação e Pagamento"],
+    hotels: ["Escolha dos dados do Hotel", "Escolha do Hotel", "Confirmação e Pagamento"],
+    idaevolta: ["Escolha dos dados do Voo", "Escolha dos Voos", "Escolha do Hotel", "Confirmação e Pagamento"],
+    ida: ["Escolha dos dados do Voo", "Escolha do Voo", "Confirmação e Pagamento"],
   };
 
   const nomesPassos = passosPorTipo[tipoBilhete] || [];

@@ -60,6 +60,7 @@ export const Lugares = async (id_viagem) => {
     return { erro: 'Erro de rede ou servidor' };
   }
 };
+
 export const Quartos = async (id_viagem) => {
   try {
     const res = await fetch('http://localhost:5000/api/mostrarquarto', {
