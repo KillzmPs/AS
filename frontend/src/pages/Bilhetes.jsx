@@ -76,7 +76,7 @@ const Bilhetes = () => {
                           return (
                             <div key={index} className='BilheteAero'>
                               <div className='BilheteCompanhia'>
-                                <img src={`src/img/${voo.Abreviacao}.png`} alt={voo.Companhia_Aerea} />
+                                <img src={`img/${voo.Abreviacao}.png`} alt={voo.Companhia_Aerea} />
                               </div>
                               <div className='ViagemContent'>
                                 <div className='Tempo'>
