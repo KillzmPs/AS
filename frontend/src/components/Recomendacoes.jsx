@@ -20,7 +20,7 @@ const Recommendations = () => {
         {recommendations.length > 0 ? (
           recommendations.map((rec, index) => (
             <div key={rec.Id} className="recommendation-card">
-              <img src={`src/img/${rec.Abreviacao}.png`} alt={rec.Nome} />
+              <img src={`img/${rec.Abreviacao}.png`} alt={rec.Nome} />
               <h1>{rec.Nome}</h1>
               <p>{new Date(rec.Data_Partida).toLocaleString("pt-PT", {
                   day: "2-digit",
