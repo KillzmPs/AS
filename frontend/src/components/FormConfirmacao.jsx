@@ -47,10 +47,13 @@ const FormConfirmacao = () => {
                 console.log(selecHotel);
                 selecLugaresHotel.forEach(async (num) => {
                 const result = await procuraQuarto(num, selecHotel.Id_Hotel);  // id_hotel
+                console.log(result);
+                console.log(result[0].Id);
                 const id_lugar = result[0].Id;
                 const result2 = await updateQuarto(id_lugar);
                 console.log(id_lugar);
                 const result3 = await inserirQuarto(id_bilhete, id_lugar, new Date(datainicio).toISOString().slice(0, 10), new Date(datafim).toISOString().slice(0, 10));
+                console.log(result3);
             });
 
             const result4 = await criarpagamento(id_bilhete,preco,"1",idM, user.Email);
