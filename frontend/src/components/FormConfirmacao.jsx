@@ -32,7 +32,7 @@ const FormConfirmacao = () => {
                 console.log(result3);
             });
 
-            if(selecLugaresVoo2.length > 0) //voo2
+            if(!(array.length === 0 || (array.length === 1 && array[0] === ""))) //voo2
                 selecLugaresVoo2.forEach(async (num) => {
                 const result = await procuraLugar(num, selecVoo2.Id_Viagem);  // id lugar
                 const id_lugar = result[0].Id;
@@ -76,7 +76,7 @@ const FormConfirmacao = () => {
                     <div className="Viagens2">
                         {selecVoo1 && (<div className="viagem">
                             <div className="imagens">
-                                <img src={`src/img/${selecVoo1.Comp_Abre}.png`} style={{height:"50px"}} alt="Voo de Ida" className="imagemViagem" />
+                                <img src={`img/${selecVoo1.Comp_Abre}.png`} style={{height:"50px"}} alt="Voo de Ida" className="imagemViagem" />
                             </div>
                             <div>Ida: {selecVoo1.Nome_Aeroporto_Origem} → {selecVoo1.Nome_Aeroporto_Destino}</div>
                             <div>Lugares: {selecLugaresVoo1.join(", ")}</div>
@@ -90,9 +90,9 @@ const FormConfirmacao = () => {
                                       hour12: false
                                     })}</div>
                         </div>)}
-                        {selecVoo2 && (<div className="viagem">
+                        {!(array.length === 0 || (array.length === 1 && array[0] === "")) && (<div className="viagem">
                             <div className="imagens">
-                                <img src={`src/img/${selecVoo2.Comp_Abre}.png`} style={{height:"50px"}} alt="Voo de Ida" className="imagemViagem" />
+                                <img src={`img/${selecVoo2.Comp_Abre}.png`} style={{height:"50px"}} alt="Voo de Ida" className="imagemViagem" />
                             </div>
                             <div>Volta: {selecVoo2.Nome_Aeroporto_Origem} → {selecVoo2.Nome_Aeroporto_Destino}</div>
                             <div>Lugares: {selecLugaresVoo2.join(", ")}</div>

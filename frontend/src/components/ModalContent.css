@@ -78,3 +78,42 @@ form {
 .FormRow button:hover {
     background-color: rgb(231, 115, 231);
 }
+
+
+@media (max-width: 500px) {
+    .Top_Modal {
+      height: auto;
+      padding: 10px;
+      text-align: center;
+    }
+  
+    .Title_Modal h2 {
+      font-size: 1.4rem;
+    }
+  
+    .Middle_Modal {
+      padding: 10px;
+      width: 100%;
+      flex-direction: column;
+    }
+  
+    form {
+      max-width: 100%;
+      padding: 0 10px;
+    }
+  
+    .FormRow {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .FormRow button {
+      width: 100%;
+    }
+  
+    .pais_modal,
+    .FormRow input {
+      width: 100%;
+    }
+  }
+  

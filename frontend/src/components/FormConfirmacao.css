@@ -196,3 +196,48 @@ hr {
     cursor: pointer;
     font-weight: bold;
 }
+
+@media (max-width: 1024px) {
+    .ConfCard {
+      flex-direction: column;
+    }
+  
+    .DadosPessoais,
+    .ViagensHotel,
+    .DadosPreco {
+      width: 100%;
+    }
+  
+    .MetodosPagamento {
+      justify-content: center;
+    }
+  
+    .botoesConfirma {
+      justify-content: center;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .ConfCard {
+      margin: 0 1rem 2rem 1rem;
+    }
+  
+    .DadosPessoais, .ViagensHotel, .DadosPreco {
+      padding: 15px;
+    }
+  
+    .Metodos {
+      width: 100%;
+      max-width: 250px;
+    }
+  
+    .Metodos img {
+      height: 60px;
+    }
+  
+    .veriB {
+      width: 100%;
+      max-width: 250px;
+    }
+  }
+  

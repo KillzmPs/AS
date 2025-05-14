@@ -98,4 +98,48 @@
   .selecionar-btn:hover {
     background-color: #0056b3;
   }
+
+
+  @media (max-width: 1024px) {
+    .bilhete-content {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  
+    .bilhete-coluna.larga,
+    .bilhete-coluna.estreita {
+      width: 100%;
+      margin: 0;
+    }
+  
+    .bilhete-coluna.estreita {
+      margin-top: 0;
+    }
+  
+    .form-container {
+      padding: 1rem 1.5rem;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .titulo-passo {
+      font-size: 1.8rem;
+      margin-bottom: 3rem;
+    }
+  
+    .imagem-companhia {
+      width: 80px;
+    }
+  
+    .linha-voo {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .selecionar-btn {
+      width: 100%;
+      font-size: 1rem;
+    }
+  }
+  
   

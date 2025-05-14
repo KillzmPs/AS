@@ -53,3 +53,38 @@
 .recommendation-card h1 {
   color: black;
 }
+
+@media (max-width: 600px) {
+  .recommendations {
+    padding: 10px 15px 20px 15px;
+  }
+
+  .recommendations-title {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+
+  .recommendations-row {
+    flex-direction: column;
+    gap: 10px;
+    overflow-x: visible;
+  }
+
+  .recommendation-card {
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .recommendation-card img {
+    max-height: 80px;
+  }
+
+  .recommendation-card h3 {
+    font-size: 14px;
+  }
+
+  .recommendation-card p {
+    font-size: 12px;
+  }
+}

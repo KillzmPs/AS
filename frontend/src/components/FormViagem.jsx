@@ -61,7 +61,7 @@ const FormViagem = () => {
         <div className="bilhete-content">
           <div className="bilhete-coluna larga">
             <div className="linha-voo">
-              <img src={`src/img/${par.voo1.Comp_Abre}.png`} alt="Logo da Companhia" className="imagem-companhia" />
+              <img src={`img/${par.voo1.Comp_Abre}.png`} alt="Logo da Companhia" className="imagem-companhia" />
               <div className="info-voo">
                 <div>{new Date(par.voo1.Data_Partida).toLocaleDateString("pt-PT")} </div>
                 <strong>Ida:</strong> {par.voo1.Nome_Aeroporto_Origem} → {par.voo1.Nome_Aeroporto_Destino} <br />
@@ -79,7 +79,7 @@ const FormViagem = () => {
               </div>
             </div>
             <div className="linha-voo">
-              <img src={`src/img/${par.voo2.Comp_Abre}.png`} alt="Logo da Companhia" className="imagem-companhia" />
+              <img src={`img/${par.voo2.Comp_Abre}.png`} alt="Logo da Companhia" className="imagem-companhia" />
               <div className="info-voo">
                 <div>{new Date(par.voo2.Data_Partida).toLocaleDateString("pt-PT")} </div>
                 <strong>Volta:</strong> {par.voo2.Nome_Aeroporto_Origem} → {par.voo2.Nome_Aeroporto_Destino} <br />
@@ -119,7 +119,7 @@ const FormViagem = () => {
         <div className="bilhete-content">
           <div className="bilhete-coluna larga">
             <div className="linha-voo">
-              <img src={`src/img/${voo.Comp_Abre}.png`} alt="Logo da Companhia" className="imagem-companhia" />
+              <img src={`img/${voo.Comp_Abre}.png`} alt="Logo da Companhia" className="imagem-companhia" />
               <div className="info-voo">
               <div>{new Date(voo.Data_Partida).toLocaleDateString("pt-PT")} </div>
                 <strong>{voo.Nome_Aeroporto_Origem} → {voo.Nome_Aeroporto_Destino}</strong><br />

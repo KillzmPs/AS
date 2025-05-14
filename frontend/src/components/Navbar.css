@@ -187,3 +187,59 @@ body {
 .navbar-left:hover {
     cursor: pointer;
 }
+
+@media (max-width: 600px) {
+    .navbar {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1rem;
+    }
+  
+    .navbar-right {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      margin-right: 0;
+      width: 100%;
+    }
+  
+    .language-selector,
+    .user-greeting,
+    .user-greeting2 {
+      width: 100%;
+      justify-content: flex-start;
+    }
+  
+    .company-name {
+      font-size: 1.5rem;
+      -webkit-text-stroke: 1px black;
+    }
+  
+    .flag-circle,
+    .avatar-circle {
+      width: 30px;
+      height: 30px;
+    }
+  
+    .language-text,
+    .user-greeting span {
+      font-size: 0.8rem;
+    }
+  
+    .perfil-modal {
+      width: 90%;
+      right: 5%;
+      padding: 15px;
+    }
+  
+    .content {
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+  
+    .section {
+      height: auto;
+      margin-bottom: 15px;
+    }
+  }
+  
