@@ -32,7 +32,7 @@ const FormConfirmacao = () => {
                 console.log(result3);
             });
 
-            if(!(array.length === 0 || (array.length === 1 && array[0] === ""))) //voo2
+            if(!(selecLugaresVoo2.length === 0 || (selecLugaresVoo2.length === 1 && selecLugaresVoo2[0] === ""))) //voo2
                 selecLugaresVoo2.forEach(async (num) => {
                 const result = await procuraLugar(num, selecVoo2.Id_Viagem);  // id lugar
                 const id_lugar = result[0].Id;
@@ -90,7 +90,7 @@ const FormConfirmacao = () => {
                                       hour12: false
                                     })}</div>
                         </div>)}
-                        {!(array.length === 0 || (array.length === 1 && array[0] === "")) && (<div className="viagem">
+                        {!(selecLugaresVoo2.length === 0 || (selecLugaresVoo2.length === 1 && selecLugaresVoo2[0] === "")) && (<div className="viagem">
                             <div className="imagens">
                                 <img src={`img/${selecVoo2.Comp_Abre}.png`} style={{height:"50px"}} alt="Voo de Ida" className="imagemViagem" />
                             </div>
