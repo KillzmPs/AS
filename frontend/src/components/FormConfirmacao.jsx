@@ -22,13 +22,15 @@ const FormConfirmacao = () => {
             const result = await CriaBilhete(user.Id); // criar bilhete
             const result2 = await maxBilhete(user.Id); // id bilhete
             const id_bilhete = result2[0].ma;
-            console.log(id_bilhete);
+            console.log("id bilhete: " + id_bilhete);
             if(selecLugaresVoo1.length > 0) // voo1
                 selecLugaresVoo1.forEach(async (num) => {
                 const result = await procuraLugar(num, selecVoo1.Id_Viagem);  // id lugar
+                console.log("id bilhete: " + result[0].Id);
                 const id_lugar = result[0].Id;
                 const result2 = await updateLugar(id_lugar);
                 const result3 = await inserirlugar(id_bilhete, id_lugar);
+                console.log(result2);
                 console.log(result3);
             });
 
