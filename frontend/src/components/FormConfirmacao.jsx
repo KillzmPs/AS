@@ -54,6 +54,11 @@ const FormConfirmacao = () => {
             });
 
             const result4 = await criarpagamento(id_bilhete,preco,"1",idM, user.Email);
+            console.log(result4);
+            console.log(id_bilhete);
+            console.log(preco);
+            console.log(idM);
+            console.log(user.Email);
             if(idM === 1){refMbWay()}
             navigate("/");
 
