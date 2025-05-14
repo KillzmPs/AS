@@ -48,7 +48,7 @@ const FormConfirmacao = () => {
                 const id_lugar = result[0].Id;
                 const result2 = await updateQuarto(id_lugar);
                 console.log(id_lugar);
-                const result3 = await inserirQuarto(id_bilhete, id_lugar, new Date(selecVoo2.Data_Partida).toISOString().slice(0, 10), new Date(selecVoo2.Data_Partida).toISOString().slice(0, 10));
+                const result3 = await inserirQuarto(id_bilhete, id_lugar, new Date(selecVoo1.Data_Partida).toISOString().slice(0, 10), new Date(selecVoo2.Data_Partida).toISOString().slice(0, 10));
             });
 
             const result4 = await criarpagamento(id_bilhete,preco,"1",idM, user.Email);

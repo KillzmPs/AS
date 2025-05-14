@@ -214,6 +214,7 @@ app.post('/api/NovaPass', async (req, res) => {
     text: `Olá\nFoi pedido um requerimento de nova Palavra-Passe.\nEsta é a sua nova Palavra-Passe ${codigo}\nPode alterar a Palavra-Passe na aba dos Dados Pessoais\nA equipa da FlyEasy`
   };
 
+
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.error('Erro ao enviar email:', error);

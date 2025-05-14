@@ -116,8 +116,7 @@ const ModalContent = () => {
     try {
       console.log(email);
       const result = await veriEmail(email);
-      console.log(result);
-      if(result.length < 0) {
+      if(result.length === 0) {
         setError("Email não existe");
       } else {
           const result2 = await Pass2(email);
@@ -473,13 +472,12 @@ const lugaresDisponiveisVolta = Array.isArray(LugaresVoo2)
           </div>
         </div>
         <div className="Middle_Modal">
-        O montante foi enviado para o seu telemovel. Tem ate 1 mes antes do voo de partida. Caso nao o faça não tera o bilhete comprado. Pode ver na abra de bilhetes para ver como esta o estado da compra.{"\n"}Obrigado
+        O montante foi enviado para o seu telemóvel. Tem até 1 mês antes do voo de partida. Caso não o faça não terá o bilhete comprado. Pode ver na abra de bilhetes para ver como está o estado da compra.{"\n"}Obrigado
         </div>
       </div>
     );
   }
 
-  return null;
 };
 
 export default ModalContent;
