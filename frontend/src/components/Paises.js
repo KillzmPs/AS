@@ -1,7 +1,7 @@
 
 export const fetchCountries = async () => {
     try {
-        const response = await fetch('http://localhost:5000/api/paises');
+        const response = await fetch('https://backend-theta-blue-74.vercel.app/paises');
         if (!response.ok) {
             throw new Error('Erro ao buscar dados');
         }

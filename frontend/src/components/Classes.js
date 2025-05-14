@@ -1,7 +1,7 @@
 
 export const fetchClasses = async () => {
     try {
-        const response = await fetch('http://localhost:5000/api/classes');
+        const response = await fetch('https://backend-theta-blue-74.vercel.app/classes');
         if (!response.ok) {
             throw new Error('Erro ao buscar dados');
         }

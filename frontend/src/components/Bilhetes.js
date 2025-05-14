@@ -1,6 +1,6 @@
 export const BilhetesId = async (id) => {
     try {
-      const res = await fetch('http://localhost:5000/api/bilhete', {
+      const res = await fetch('https://backend-theta-blue-74.vercel.app/bilhete', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id })
@@ -21,7 +21,7 @@ export const BilhetesId = async (id) => {
 
 export const BilheteVoo = async (id) => {
     try {
-      const res = await fetch('http://localhost:5000/api/bilhetevoo', {
+      const res = await fetch('https://backend-theta-blue-74.vercel.app/bilhetevoo', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id })
@@ -42,7 +42,7 @@ export const BilheteVoo = async (id) => {
 
 export const BilheteHotel = async (id) => {
     try {
-      const res = await fetch('http://localhost:5000/api/bilhetehotel', {
+      const res = await fetch('https://backend-theta-blue-74.vercel.app/bilhetehotel', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id })
@@ -63,7 +63,7 @@ export const BilheteHotel = async (id) => {
 
 export const Pagamento = async (id) => {
     try {
-      const res = await fetch('http://localhost:5000/api/pagamento', {
+      const res = await fetch('https://backend-theta-blue-74.vercel.app/pagamento', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id })
@@ -84,7 +84,7 @@ export const Pagamento = async (id) => {
 
 export const CriaBilhete = async (id) => {
   try {
-    const res = await fetch('http://localhost:5000/api/criarBilhete', {
+    const res = await fetch('https://backend-theta-blue-74.vercel.app/criarBilhete', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id })
@@ -105,7 +105,7 @@ export const CriaBilhete = async (id) => {
 
 export const procuraLugar = async (numero_quarto, id_viagem) => {
   try {
-    const res = await fetch('http://localhost:5000/api/lugarid', {
+    const res = await fetch('https://backend-theta-blue-74.vercel.app/lugarid', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ numero_quarto, id_viagem })
@@ -126,7 +126,7 @@ export const procuraLugar = async (numero_quarto, id_viagem) => {
 
 export const procuraQuarto = async (numero_quarto, id_hotel) => {
   try {
-    const res = await fetch('http://localhost:5000/api/quartoid', {
+    const res = await fetch('https://backend-theta-blue-74.vercel.app/quartoid', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ numero_quarto, id_hotel })
@@ -147,7 +147,7 @@ export const procuraQuarto = async (numero_quarto, id_hotel) => {
 
 export const maxBilhete = async (id_user) => {
   try {
-    const res = await fetch('http://localhost:5000/api/maxbilhete', {
+    const res = await fetch('https://backend-theta-blue-74.vercel.app/maxbilhete', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id_user })
@@ -168,7 +168,7 @@ export const maxBilhete = async (id_user) => {
 
 export const updateLugar = async (id_lugar) => {
   try {
-    const res = await fetch('http://localhost:5000/api/disponivelugar', {
+    const res = await fetch('https://backend-theta-blue-74.vercel.app/disponivelugar', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id_lugar })
@@ -189,7 +189,7 @@ export const updateLugar = async (id_lugar) => {
 
 export const updateQuarto = async (id_quarto) => {
   try {
-    const res = await fetch('http://localhost:5000/api/disponivelquarto', {
+    const res = await fetch('https://backend-theta-blue-74.vercel.app/disponivelquarto', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id_quarto })
@@ -210,7 +210,7 @@ export const updateQuarto = async (id_quarto) => {
 
 export const inserirlugar = async (id_bilhete, id_lugar) => {
   try {
-    const res = await fetch('http://localhost:5000/api/inserirlugar', {
+    const res = await fetch('https://backend-theta-blue-74.vercel.app/inserirlugar', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id_bilhete, id_lugar })
@@ -231,7 +231,7 @@ export const inserirlugar = async (id_bilhete, id_lugar) => {
 
 export const inserirQuarto = async (id_bilhete, id_quarto, data_inicio, data_fim) => {
   try {
-    const res = await fetch('http://localhost:5000/api/inserirquarto', {
+    const res = await fetch('https://backend-theta-blue-74.vercel.app/inserirquarto', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id_bilhete, id_quarto, data_inicio, data_fim })
@@ -252,7 +252,7 @@ export const inserirQuarto = async (id_bilhete, id_quarto, data_inicio, data_fim
 
 export const criarpagamento = async (id_bilhete, preco, id_estado, id_tipo, email) => {
   try {
-    const res = await fetch('http://localhost:5000/api/criarpag', {
+    const res = await fetch('https://backend-theta-blue-74.vercel.app/criarpag', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id_bilhete, preco, id_estado, id_tipo, email })

@@ -1,6 +1,6 @@
 export const Login = async (email, password) => {
     try {
-      const res = await fetch('http://localhost:5000/api/utilizadores', {
+      const res = await fetch('https://backend-theta-blue-74.vercel.app/utilizadores', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -21,7 +21,7 @@ export const Login = async (email, password) => {
 
 export const Login2 = async (id) => {
   try {
-    const res = await fetch('http://localhost:5000/api/loginId', {
+    const res = await fetch('https://backend-theta-blue-74.vercel.app/loginId', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id })
@@ -42,7 +42,7 @@ export const Login2 = async (id) => {
 
 export const veriEmail = async (email) => {
   try {
-    const res = await fetch('http://localhost:5000/api/emails', {
+    const res = await fetch('https://backend-theta-blue-74.vercel.app/emails', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email })
@@ -63,7 +63,7 @@ export const veriEmail = async (email) => {
 
 export const Register = async (nome, email, tele, data_aniversario, password, id_pais) => {
   try {
-    const res = await fetch('http://localhost:5000/api/createuser', {
+    const res = await fetch('https://backend-theta-blue-74.vercel.app/createuser', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nome, email, tele, data_aniversario, password, id_pais })
@@ -83,7 +83,7 @@ export const Register = async (nome, email, tele, data_aniversario, password, id
 };
 
 export const send2FACode = async (email) => {
-  const response = await fetch("http://localhost:5000/api/2fa/send", {
+  const response = await fetch("https://backend-theta-blue-74.vercel.app/2fa/send", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email }),
@@ -92,7 +92,7 @@ export const send2FACode = async (email) => {
 };
 
 export const verify2FACode = async (email, codigo) => {
-  const response = await fetch("http://localhost:5000/api/2fa/verify", {
+  const response = await fetch("https://backend-theta-blue-74.vercel.app/2fa/verify", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, codigo }),
@@ -102,7 +102,7 @@ export const verify2FACode = async (email, codigo) => {
 
 export const updatePass = async (Id, password) => {
   try {
-    const res = await fetch('http://localhost:5000/api/updateUserPass', {
+    const res = await fetch('https://backend-theta-blue-74.vercel.app/updateUserPass', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({Id, password})
@@ -123,7 +123,7 @@ export const updatePass = async (Id, password) => {
 
 export const updateData = async (Id, email, tele, fa) => {
   try {
-    const res = await fetch('http://localhost:5000/api/updateUserData', {
+    const res = await fetch('https://backend-theta-blue-74.vercel.app/updateUserData', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({email, tele, fa, Id})
@@ -144,7 +144,7 @@ export const updateData = async (Id, email, tele, fa) => {
 
 export const Pass2 = async (email) => {
   try {
-    const res = await fetch('http://localhost:5000/api/NovaPass', {
+    const res = await fetch('https://backend-theta-blue-74.vercel.app/NovaPass', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({email})

@@ -14,8 +14,8 @@ const codigos2FA = new Map();
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: "flyeasyofficial@gmail.com", 
-    pass: "gcrfmebfwajsrdai"
+    user: process.env.FA_EMAIL, 
+    pass: process.env.FA_PASS
   }
 });
 
@@ -665,7 +665,6 @@ app.post('/api/mostrarVoos', async (req, res) => {
   });
   
 });
-
 
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Servidor na porta ${PORT}`));
