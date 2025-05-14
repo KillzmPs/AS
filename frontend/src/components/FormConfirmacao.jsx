@@ -131,7 +131,7 @@ const FormConfirmacao = () => {
                 <div className="Metodos" onClick={() => {setMetodo("MBWay");setLigado(false);setIdM(1)}} style={{backgroundColor: metodo === "MBWay" ? "pink": "white"}}>
                    <div>
                     <div>
-                        <img src="src/img/MBWAY.png"/>
+                        <img src="img/MBWAY.png"/>
                     </div>
                     <div style={{textAlign:"end"}}>
                         MBWay
@@ -141,7 +141,7 @@ const FormConfirmacao = () => {
                 <div className="Metodos" onClick={() => {setMetodo("Multibanco");setLigado(false);setIdM(2)}} style={{backgroundColor: metodo === "Multibanco" ? "pink": "white"}}>
                    <div>
                     <div>
-                        <img src="src/img/Multibanco.png"/>
+                        <img src="img/Multibanco.png"/>
                     </div>
                     <div style={{textAlign:"end"}}>
                         Multibanco
@@ -151,7 +151,7 @@ const FormConfirmacao = () => {
                 <div className="Metodos" onClick={() => {setMetodo("Stripe");setLigado(false);setIdM(3)}} style={{backgroundColor: metodo === "Stripe" ? "pink": "white"}}>
                    <div>
                     <div>
-                        <img src="src/img/Stripe.png"/>
+                        <img src="img/Stripe.png"/>
                     </div>
                     <div style={{textAlign:"end"}}>
                         Stripe
